@@ -1,0 +1,60 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Helvetica Neue", Arial, "Inter", sans-serif;
+  --font-mono: "Courier New", Courier, monospace;
+
+  --color-bg: #F9F9F7;
+  --color-ink: #121212;
+  --color-accent: #0047FF;
+  --color-muted: #8E8E8E;
+  --color-line: #D1D1CF;
+  
+  --color-surface: var(--color-bg);
+  --color-on-surface: var(--color-ink);
+  --color-primary: var(--color-accent);
+
+  --animate-marquee: marquee 40s linear infinite;
+
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+}
+
+@layer base {
+  body {
+    @apply bg-bg text-ink font-sans selection:bg-accent/10;
+    margin: 0;
+    padding: 0;
+  }
+}
+
+@layer utility {
+  .geometric-card {
+    background: white;
+    border: 1px solid var(--color-line);
+    @apply p-6 transition-all;
+  }
+
+  .geometric-card:hover {
+    border-color: var(--color-ink);
+  }
+
+  .label-mono {
+    @apply font-mono text-[10px] uppercase tracking-wider text-muted;
+  }
+
+  .btn-geometric {
+    @apply bg-ink text-white font-mono text-[11px] uppercase tracking-[0.1em] py-4 px-6 hover:bg-accent transition-colors disabled:bg-line;
+  }
+
+  .border-ink {
+    border-color: var(--color-ink);
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}window.alert { display: none; }
