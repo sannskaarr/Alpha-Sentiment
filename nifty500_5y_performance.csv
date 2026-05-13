@@ -1,0 +1,40 @@
+Ticker,Company_Name,Start_Price_5y_Ago,Current_Price,Performance_5y_%
+HAL.NS,Hindustan Aeronautics Limited,446.5,4788.1,972.36
+BEL.NS,Bharat Electronics Limited,45.17,439.7,873.4
+BHEL.NS,Bharat Heavy Electricals Limited,64.78,404.6,524.56
+TRENT.NS,Trent Limited,743.79,4242.3,470.36
+COALINDIA.NS,Coal India Limited,97.02,456.4,370.4
+NTPC.NS,NTPC Limited,89.77,402.15,348.0
+M&M.NS,Mahindra & Mahindra Limited,744.55,3330.4,347.31
+ONGC.NS,Oil & Natural Gas Corporation Limited,83.37,279.2,234.91
+BHARTIARTL.NS,Bharti Airtel Limited,549.27,1834.5,233.99
+POWERGRID.NS,Power Grid Corporation of India Limited,95.58,313.95,228.45
+TITAN.NS,Titan Company Limited,1432.86,4509.0,214.68
+SBIN.NS,State Bank of India,333.75,1019.3,205.41
+LT.NS,Larsen & Toubro Limited,1323.77,3974.5,200.24
+SUNPHARMA.NS,Sun Pharmaceutical Industries Limited,664.55,1847.9,178.07
+HINDALCO.NS,Hindalco Industries Limited,410.88,1044.4,154.19
+ADANIPORTS.NS,Adani Ports and Special Economic Zone,743.04,1760.4,136.92
+ICICIBANK.NS,ICICI Bank Limited,593.13,1264.8,113.24
+MARUTI.NS,Maruti Suzuki India Limited,6482.87,13726.0,111.73
+TATASTEEL.NS,Tata Steel Limited,104.71,214.49,104.84
+ADANIENT.NS,Adani Enterprises Limited,1300.94,2505.9,92.62
+ULTRACEMCO.NS,UltraTech Cement Limited,6230.14,11950.0,91.81
+ITC.NS,ITC Limited,161.59,307.45,90.27
+AXISBANK.NS,Axis Bank Limited,712.28,1268.3,78.06
+BAJFINANCE.NS,Bajaj Finance Limited,538.52,955.35,77.4
+TECHM.NS,Tech Mahindra Limited,831.37,1463.0,75.97
+IRCTC.NS,Indian Railway Catering and Tourism,334.09,564.9,69.08
+RELIANCE.NS,Reliance Industries Limited,873.4,1435.2,64.32
+HCLTECH.NS,HCL Technologies Limited,746.06,1198.4,60.63
+TATACOMM.NS,Tata Communications Limited,1013.64,1592.3,57.09
+DMART.NS,Avenue Supermarts Limited,2852.45,4402.1,54.33
+HDFCBANK.NS,HDFC Bank Limited,672.42,780.85,16.12
+ASIANPAINT.NS,Asian Paints Limited,2447.44,2599.9,6.23
+KOTAKBANK.NS,Kotak Mahindra Bank Limited,360.36,380.8,5.67
+HINDUNILVR.NS,Hindustan Unilever Limited,2237.31,2287.7,2.25
+INFY.NS,Infosys Limited,1179.23,1179.2,-0.0
+TCS.NS,Tata Consultancy Services Limited,2765.14,2394.4,-13.41
+WIPRO.NS,Wipro Limited,242.96,197.91,-18.54
+PAYTM.NS,One97 Communications (Paytm),1560.8,1187.1,-23.94
+NYKAA.NS,FSN E-Commerce Ventures (Nykaa),367.63,272.8,-25.8

@@ -75,7 +75,7 @@ const MarketIntel = React.memo(() => {
     if (isLoading) return;
     setIsLoading(true);
     try {
-      const apiKey = process.env.GEMINI_API_KEY;
+      const apiKey = process.env.GEMINI_API_KEY || import.meta.env.VITE_GEMINI_API_KEY;
       if (!apiKey) {
         setIsLoading(false);
         return;
@@ -127,7 +127,9 @@ const MarketIntel = React.memo(() => {
   };
 
   useEffect(() => {
-    // Initial load uses static data to prevent auto-fetching on mount as requested
+    fetchIntel();
+    const intelInterval = setInterval(fetchIntel, 300000); // Refresh every 5 minutes
+    return () => clearInterval(intelInterval);
   }, []);
 
   return (
@@ -2444,7 +2446,7 @@ const VortexAICopilot = () => {
     setIsTyping(true);
 
     try {
-      const apiKey = process.env.GEMINI_API_KEY;
+      const apiKey = process.env.GEMINI_API_KEY || import.meta.env.VITE_GEMINI_API_KEY;
       if (!apiKey) throw new Error("Missing API Key");
 
       const ai = new GoogleGenAI({ apiKey });
@@ -2914,7 +2916,7 @@ export default function App() {
 }
 
 const LandingBackground = () => (
-  <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden bg-bg">
+  <div className="absolute inset-0 z-0 overflow-hidden bg-transparent">
     <iframe 
       src="https://my.spline.design/galaxyrollercoaster-noZmo93Bu8AML3T4vSkVGMgs/" 
       className="w-full h-full border-none opacity-90 scale-105"
