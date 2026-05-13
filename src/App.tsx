@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { 
+import {
   BarChart,
   Bar,
   Line,
@@ -15,20 +15,20 @@ import {
   LineChart,
   Legend
 } from 'recharts';
-import { 
-  BarChart3, 
-  TrendingUp, 
-  LayoutDashboard, 
-  Zap, 
-  Search, 
-  Bell, 
-  User, 
-  Settings, 
-  PieChart, 
-  Activity, 
-  Cpu, 
-  ArrowUpRight, 
-  ArrowDownRight, 
+import {
+  BarChart3,
+  TrendingUp,
+  LayoutDashboard,
+  Zap,
+  Search,
+  Bell,
+  User,
+  Settings,
+  PieChart,
+  Activity,
+  Cpu,
+  ArrowUpRight,
+  ArrowDownRight,
   Globe,
   Wallet,
   Compass,
@@ -111,7 +111,7 @@ const MarketIntel = React.memo(() => {
           }
         }
       });
-      
+
       if (aiResponse.text) {
         const data = JSON.parse(aiResponse.text);
         if (Array.isArray(data)) {
@@ -141,8 +141,8 @@ const MarketIntel = React.memo(() => {
             <span className="text-[7px] font-mono text-muted uppercase mt-1 block">LAST_SYNC: {lastUpdated} UTC</span>
           )}
         </div>
-        <button 
-          onClick={fetchIntel} 
+        <button
+          onClick={fetchIntel}
           disabled={isLoading}
           className="flex items-center gap-2 label-mono text-[9px] text-muted hover:text-accent transition-colors group px-2 py-1 border border-line hover:border-accent/40 bg-bg/20"
         >
@@ -150,13 +150,13 @@ const MarketIntel = React.memo(() => {
           {isLoading ? 'SYNCING...' : 'REFRESH_INTEL'}
         </button>
       </div>
-      
+
       <div className="space-y-6 relative overflow-hidden">
         {isLoading && (
           <div className="absolute inset-0 bg-white/70 z-10 flex flex-col items-center justify-center border border-accent/20">
             <div className="label-mono text-[8px] animate-pulse text-accent mb-2">ACCESSING_GLOBAL_SATELLITE_FEED</div>
             <div className="w-24 h-[1px] bg-line relative overflow-hidden">
-              <motion.div 
+              <motion.div
                 className="absolute inset-0 bg-accent"
                 animate={{ x: ['-100%', '100%'] }}
                 transition={{ repeat: Infinity, duration: 1, ease: 'linear' }}
@@ -164,13 +164,12 @@ const MarketIntel = React.memo(() => {
             </div>
           </div>
         )}
-        
+
         {news.slice(0, 5).map((item) => (
           <div key={item.id} className="border-b border-line pb-6 last:border-0 relative pl-5">
-            <div className={`absolute left-0 top-1.5 w-1.5 h-1.5 rounded-full ${
-              item.sentiment === 'positive' ? 'bg-green-500' : 
-              item.sentiment === 'negative' ? 'bg-red-500' : 'bg-blue-400'
-            }`} />
+            <div className={`absolute left-0 top-1.5 w-1.5 h-1.5 rounded-full ${item.sentiment === 'positive' ? 'bg-green-500' :
+                item.sentiment === 'negative' ? 'bg-red-500' : 'bg-blue-400'
+              }`} />
             <div className="label-mono mb-1 text-muted text-[9px]">{item.time} • {item.source.toUpperCase()}</div>
             <h4 className="text-sm font-medium leading-snug italic">{item.title}</h4>
           </div>
@@ -187,7 +186,7 @@ const VortexDashboard = ({ onBackToLanding }: { onBackToLanding: () => void }) =
   const [sentimentScore, setSentimentScore] = useState(78);
   const [fiiIndex, setFiiIndex] = useState(62);
   const [socialBuzz, setSocialBuzz] = useState(91);
-  
+
   // Real-time market state
   const [marketData, setMarketData] = useState({
     nifty: 23450.25,
@@ -203,7 +202,7 @@ const VortexDashboard = ({ onBackToLanding }: { onBackToLanding: () => void }) =
 
   useEffect(() => {
     const timer = setInterval(() => setCurrentTime(new Date()), 1000);
-    
+
     // Simulating live market ticks
     const marketTicker = setInterval(() => {
       setMarketData(prev => ({
@@ -211,7 +210,7 @@ const VortexDashboard = ({ onBackToLanding }: { onBackToLanding: () => void }) =
         sensex: prev.sensex + (Math.random() - 0.5) * 10,
         bank: prev.bank + (Math.random() - 0.5) * 8
       }));
-      
+
       const newNiftyTrend = Math.random() > 0.4;
       const newSensexTrend = Math.random() > 0.5;
       const newBankTrend = Math.random() > 0.3;
@@ -269,7 +268,7 @@ const VortexDashboard = ({ onBackToLanding }: { onBackToLanding: () => void }) =
     if (activeTab === 'research') return <ResearchAside onExpandStock={setExpandedStock} />;
     if (activeTab === 'trading') return <TradingAside />;
     if (activeTab === 'analytics') return <AnalyticsAside />;
-    
+
     return (
       <>
         <MarketIntel />
@@ -305,95 +304,95 @@ const VortexDashboard = ({ onBackToLanding }: { onBackToLanding: () => void }) =
       <div className={`grid grid-cols-[80px_1fr_320px] grid-rows-[80px_1fr] h-full bg-bg text-ink overflow-hidden border-[1px] border-line transition-all duration-700 ${expandedStock ? 'blur-xl grayscale-[0.5]' : ''}`}>
         {/* Sidebar */}
         <nav className="row-span-2 border-r border-ink flex flex-col pt-8 bg-white overflow-y-visible relative z-20">
-        <div className="flex flex-col items-center mb-12">
-          <div 
-            onClick={onBackToLanding}
-            className="w-10 h-10 bg-ink flex items-center justify-center rounded-[2px] mb-4 hover:bg-accent transition-colors cursor-pointer group relative"
-          >
-            <Zap className="w-6 h-6 text-white fill-white" />
-            <div className="absolute left-[55px] bg-accent text-white text-[9px] font-black py-2 px-4 tracking-[0.2em] uppercase opacity-0 group-hover:opacity-100 pointer-events-none transition-all translate-x-[-10px] group-hover:translate-x-0 z-50 whitespace-nowrap border border-white/10 shadow-2xl">
-              RETURN_TO_UPLINK
+          <div className="flex flex-col items-center mb-12">
+            <div
+              onClick={onBackToLanding}
+              className="w-10 h-10 bg-ink flex items-center justify-center rounded-[2px] mb-4 hover:bg-accent transition-colors cursor-pointer group relative"
+            >
+              <Zap className="w-6 h-6 text-white fill-white" />
+              <div className="absolute left-[55px] bg-accent text-white text-[9px] font-black py-2 px-4 tracking-[0.2em] uppercase opacity-0 group-hover:opacity-100 pointer-events-none transition-all translate-x-[-10px] group-hover:translate-x-0 z-50 whitespace-nowrap border border-white/10 shadow-2xl">
+                RETURN_TO_UPLINK
+              </div>
+            </div>
+            <div className="w-8 h-[1px] bg-line" />
+          </div>
+
+          <div className="flex flex-col gap-1">
+            <SidebarLink icon={<LayoutDashboard size={20} />} active={activeTab === 'dashboard'} onClick={() => setActiveTab('dashboard')} title="Dashboard" />
+            <SidebarLink icon={<Compass size={20} />} active={activeTab === 'research'} onClick={() => setActiveTab('research')} title="Market Data" />
+            <SidebarLink icon={<BarChart3 size={20} />} active={activeTab === 'analytics'} onClick={() => setActiveTab('analytics')} title="ML Predictions" />
+            <SidebarLink icon={<PieChart size={20} />} active={activeTab === 'portfolio'} onClick={() => setActiveTab('portfolio')} title="Portfolio" />
+            <SidebarLink icon={<Activity size={20} />} active={activeTab === 'trading'} onClick={() => setActiveTab('trading')} title="Live Trading" />
+          </div>
+
+          <div className="mt-auto pb-10 flex flex-col items-center gap-6">
+            <div className="relative group cursor-pointer">
+              <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+              <div className="absolute left-[30px] top-1/2 -translate-y-1/2 bg-ink text-white text-[8px] font-mono py-1 px-3 tracking-widest uppercase opacity-0 group-hover:opacity-100 pointer-events-none transition-all z-50 whitespace-nowrap border border-white/10">
+                CORE_ONLINE
+              </div>
+            </div>
+            <div className="relative group cursor-pointer grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all">
+              <FileText size={18} className="text-muted" />
+              <div className="absolute left-[40px] top-1/2 -translate-y-1/2 bg-ink text-white text-[8px] font-mono py-1 px-3 tracking-widest uppercase opacity-0 group-hover:opacity-100 pointer-events-none transition-all z-50 whitespace-nowrap border border-white/10">
+                VIEW_DOCS
+              </div>
             </div>
           </div>
-          <div className="w-8 h-[1px] bg-line" />
-        </div>
-        
-        <div className="flex flex-col gap-1">
-          <SidebarLink icon={<LayoutDashboard size={20} />} active={activeTab === 'dashboard'} onClick={() => setActiveTab('dashboard')} title="Dashboard" />
-          <SidebarLink icon={<Compass size={20} />} active={activeTab === 'research'} onClick={() => setActiveTab('research')} title="Market Data" />
-          <SidebarLink icon={<BarChart3 size={20} />} active={activeTab === 'analytics'} onClick={() => setActiveTab('analytics')} title="ML Predictions" />
-          <SidebarLink icon={<PieChart size={20} />} active={activeTab === 'portfolio'} onClick={() => setActiveTab('portfolio')} title="Portfolio" />
-          <SidebarLink icon={<Activity size={20} />} active={activeTab === 'trading'} onClick={() => setActiveTab('trading')} title="Live Trading" />
-        </div>
+        </nav>
 
-        <div className="mt-auto pb-10 flex flex-col items-center gap-6">
-          <div className="relative group cursor-pointer">
-            <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-            <div className="absolute left-[30px] top-1/2 -translate-y-1/2 bg-ink text-white text-[8px] font-mono py-1 px-3 tracking-widest uppercase opacity-0 group-hover:opacity-100 pointer-events-none transition-all z-50 whitespace-nowrap border border-white/10">
-              CORE_ONLINE
+        {/* Header */}
+        <header className="col-span-2 border-b border-ink flex items-center justify-between px-10 bg-white">
+          <div className="flex items-baseline gap-4">
+            <h1 className="text-2xl font-medium tracking-tight uppercase">System Dashboard</h1>
+            <span className="font-mono text-[10px] text-muted tracking-widest uppercase">VPRO_QUANT_v1.0</span>
+          </div>
+
+          <div className="flex items-center gap-10">
+            <div className="flex items-center gap-6 overflow-hidden max-w-lg no-scrollbar">
+              <MarketTicker label="NIF50" value={marketData.nifty.toFixed(2)} isUp={marketTrends.nifty} />
+              <MarketTicker label="SENSEX" value={marketData.sensex.toFixed(2)} isUp={marketTrends.sensex} />
+              <MarketTicker label="BANK" value={marketData.bank.toFixed(2)} isUp={marketTrends.bank} />
+            </div>
+            <div className="font-mono text-xs tracking-widest text-muted border-l border-line pl-10 h-8 flex items-center">
+              SYNC: OK — {formatTime(currentTime)}
             </div>
           </div>
-          <div className="relative group cursor-pointer grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all">
-            <FileText size={18} className="text-muted" />
-            <div className="absolute left-[40px] top-1/2 -translate-y-1/2 bg-ink text-white text-[8px] font-mono py-1 px-3 tracking-widest uppercase opacity-0 group-hover:opacity-100 pointer-events-none transition-all z-50 whitespace-nowrap border border-white/10">
-              VIEW_DOCS
-            </div>
-          </div>
-        </div>
-      </nav>
+        </header>
 
-      {/* Header */}
-      <header className="col-span-2 border-b border-ink flex items-center justify-between px-10 bg-white">
-        <div className="flex items-baseline gap-4">
-          <h1 className="text-2xl font-medium tracking-tight uppercase">System Dashboard</h1>
-          <span className="font-mono text-[10px] text-muted tracking-widest uppercase">VPRO_QUANT_v1.0</span>
-        </div>
+        {/* Main Content */}
+        <main className="p-10 overflow-y-auto no-scrollbar bg-white relative">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={activeTab}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.2 }}
+              className="h-full"
+            >
+              {renderContent()}
+            </motion.div>
+          </AnimatePresence>
+        </main>
 
-        <div className="flex items-center gap-10">
-          <div className="flex items-center gap-6 overflow-hidden max-w-lg no-scrollbar">
-            <MarketTicker label="NIF50" value={marketData.nifty.toFixed(2)} isUp={marketTrends.nifty} />
-            <MarketTicker label="SENSEX" value={marketData.sensex.toFixed(2)} isUp={marketTrends.sensex} />
-            <MarketTicker label="BANK" value={marketData.bank.toFixed(2)} isUp={marketTrends.bank} />
-          </div>
-          <div className="font-mono text-xs tracking-widest text-muted border-l border-line pl-10 h-8 flex items-center">
-            SYNC: OK — {formatTime(currentTime)}
-          </div>
-        </div>
-      </header>
-
-      {/* Main Content */}
-      <main className="p-10 overflow-y-auto no-scrollbar bg-white relative">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={activeTab}
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.2 }}
-            className="h-full"
-          >
-            {renderContent()}
-          </motion.div>
-        </AnimatePresence>
-      </main>
-
-      {/* Detail Panel */}
-      <aside className="border-l border-ink bg-[#F1F1EF] p-10 overflow-y-auto no-scrollbar">
-        {renderAside()}
-      </aside>
+        {/* Detail Panel */}
+        <aside className="border-l border-ink bg-[#F1F1EF] p-10 overflow-y-auto no-scrollbar">
+          {renderAside()}
+        </aside>
+      </div>
+      <VortexAICopilot />
     </div>
-    <VortexAICopilot />
-  </div>
   );
 };
 
 // Subcomponents
-const DashboardView = ({ 
-  onExpandStock, 
-  sentimentScore, 
-  fiiIndex, 
-  socialBuzz 
-}: { 
+const DashboardView = ({
+  onExpandStock,
+  sentimentScore,
+  fiiIndex,
+  socialBuzz
+}: {
   onExpandStock: (s: Nifty500Stock) => void,
   sentimentScore: number,
   fiiIndex: number,
@@ -414,24 +413,24 @@ const DashboardView = ({
           <span className="label-mono">Active Analysis</span>
           <div className="w-3 h-3 bg-accent animate-pulse" />
         </div>
-        
+
         <div className="grid grid-cols-2 gap-4">
           {TOP_STOCKS.slice(0, 4).map((stock) => {
             const niftyStock = NIFTY_500_STOCKS.find(s => s.symbol === stock.symbol)!;
             return (
-              <div 
-                key={stock.symbol} 
+              <div
+                key={stock.symbol}
                 onClick={() => onExpandStock(niftyStock)}
                 className="p-2 -mx-2 hover:bg-bg transition-colors border-b border-line last:border-0 border-transparent hover:border-line cursor-pointer"
               >
-              <div className="flex justify-between items-start mb-1">
-                <span className="font-mono text-[10px] font-bold">{stock.symbol}</span>
-                <span className={`font-mono text-[10px] ${stock.change >= 0 ? 'text-green-600' : 'text-red-600'}`}>
-                  {stock.changePercent}%
-                </span>
+                <div className="flex justify-between items-start mb-1">
+                  <span className="font-mono text-[10px] font-bold">{stock.symbol}</span>
+                  <span className={`font-mono text-[10px] ${stock.change >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+                    {stock.changePercent}%
+                  </span>
+                </div>
+                <div className="text-xl font-light tracking-tighter">₹{stock.price.toLocaleString()}</div>
               </div>
-              <div className="text-xl font-light tracking-tighter">₹{stock.price.toLocaleString()}</div>
-            </div>
             );
           })}
         </div>
@@ -448,7 +447,7 @@ const DashboardView = ({
           <span className="label-mono">Cognitive Sentiment</span>
           <div className="w-3 h-3 border border-ink" />
         </div>
-        
+
         <div className="py-8 flex flex-col items-center">
           <div className="text-[64px] font-light tracking-tighter leading-none">{sentimentScore}<span className="text-xl align-top pt-2">/100</span></div>
           <div className="label-mono mt-4 text-accent font-black tracking-[0.2em]">{getSentimentLabel(sentimentScore)}</div>
@@ -460,60 +459,60 @@ const DashboardView = ({
         </div>
       </section>
 
-    {/* Quick Trade */}
-    <section className="geometric-card flex flex-col justify-between">
-      <div className="flex justify-between items-start">
-        <span className="label-mono">Instant Execution</span>
-        <div className="w-3 h-3 bg-ink" />
-      </div>
-      
-      <div className="space-y-6">
-        <div>
-          <label className="label-mono block mb-2">TARGET ASSET</label>
-          <div className="border border-line p-3 font-mono text-xs">RELIANCE_NSE</div>
+      {/* Quick Trade */}
+      <section className="geometric-card flex flex-col justify-between">
+        <div className="flex justify-between items-start">
+          <span className="label-mono">Instant Execution</span>
+          <div className="w-3 h-3 bg-ink" />
         </div>
-        <div className="grid grid-cols-2 gap-4">
-          <div>
-            <label className="label-mono block mb-2">LOTS</label>
-            <div className="border border-line p-3 font-mono text-xs">100</div>
-          </div>
-          <div>
-            <label className="label-mono block mb-2">LEVERAGE</label>
-            <div className="border border-line p-3 font-mono text-xs">5.0x</div>
-          </div>
-        </div>
-      </div>
 
-      <button className="btn-geometric w-full mt-6">INITIATE TRANSACTION</button>
-    </section>
+        <div className="space-y-6">
+          <div>
+            <label className="label-mono block mb-2">TARGET ASSET</label>
+            <div className="border border-line p-3 font-mono text-xs">RELIANCE_NSE</div>
+          </div>
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <label className="label-mono block mb-2">LOTS</label>
+              <div className="border border-line p-3 font-mono text-xs">100</div>
+            </div>
+            <div>
+              <label className="label-mono block mb-2">LEVERAGE</label>
+              <div className="border border-line p-3 font-mono text-xs">5.0x</div>
+            </div>
+          </div>
+        </div>
 
-    {/* Portfolio Pulse */}
-    <section className="geometric-card flex flex-col justify-between border-ink">
-      <div className="flex justify-between items-start">
-        <span className="label-mono">Algorithm Health</span>
-        <div className="w-3 h-3 border border-accent bg-accent/10" />
-      </div>
-      
-      <div className="space-y-4 my-6">
-        <div className="flex justify-between items-center py-2 border-b border-line">
-          <span className="text-sm">Mean Reversion</span>
-          <span className="font-mono text-xs text-green-600">+12%</span>
+        <button className="btn-geometric w-full mt-6">INITIATE TRANSACTION</button>
+      </section>
+
+      {/* Portfolio Pulse */}
+      <section className="geometric-card flex flex-col justify-between border-ink">
+        <div className="flex justify-between items-start">
+          <span className="label-mono">Algorithm Health</span>
+          <div className="w-3 h-3 border border-accent bg-accent/10" />
         </div>
-        <div className="flex justify-between items-center py-2 border-b border-line">
-          <span className="text-sm">Sentiment Scalp</span>
-          <span className="font-mono text-xs text-green-600">+4.2%</span>
+
+        <div className="space-y-4 my-6">
+          <div className="flex justify-between items-center py-2 border-b border-line">
+            <span className="text-sm">Mean Reversion</span>
+            <span className="font-mono text-xs text-green-600">+12%</span>
+          </div>
+          <div className="flex justify-between items-center py-2 border-b border-line">
+            <span className="text-sm">Sentiment Scalp</span>
+            <span className="font-mono text-xs text-green-600">+4.2%</span>
+          </div>
+          <div className="flex justify-between items-center py-2">
+            <span className="text-sm">Vol-Breakout</span>
+            <span className="font-mono text-xs text-red-600">-2.1%</span>
+          </div>
         </div>
-        <div className="flex justify-between items-center py-2">
-          <span className="text-sm">Vol-Breakout</span>
-          <span className="font-mono text-xs text-red-600">-2.1%</span>
+
+        <div className="text-[10px] text-muted font-mono leading-relaxed">
+          System clusters operating within expected parameters. No manual intervention required.
         </div>
-      </div>
-      
-      <div className="text-[10px] text-muted font-mono leading-relaxed">
-        System clusters operating within expected parameters. No manual intervention required.
-      </div>
-    </section>
-  </div>
+      </section>
+    </div>
   );
 };
 
@@ -525,7 +524,7 @@ const PlaceholderView = ({ title, icon, subtitle }: { title: string; icon: React
       {subtitle || "This quantitative module is being calibrated for real-time asset processing. Estimated synchronization 14:02 UTC."}
     </p>
     <div className="mt-12 w-48 h-[1px] bg-line relative overflow-hidden">
-      <motion.div 
+      <motion.div
         animate={{ x: ['-100%', '100%'] }}
         transition={{ repeat: Infinity, duration: 2, ease: "linear" }}
         className="absolute inset-0 bg-accent w-1/2"
@@ -535,12 +534,12 @@ const PlaceholderView = ({ title, icon, subtitle }: { title: string; icon: React
 );
 
 const SidebarLink = ({ icon, title, active, onClick }: any) => (
-  <button 
+  <button
     onClick={onClick}
     className={`flex items-center justify-center w-full py-5 transition-all relative group ${active ? 'bg-accent/5 text-ink' : 'text-muted hover:text-ink hover:bg-bg/50'}`}
   >
     <div className={`transition-transform duration-300 ${active ? 'text-accent' : 'opacity-40 group-hover:opacity-100 group-hover:scale-110'}`}>{icon}</div>
-    
+
     {/* Tooltip */}
     <div className="absolute left-[65px] bg-ink text-white text-[9px] font-mono py-2 px-4 tracking-[0.2em] uppercase opacity-0 group-hover:opacity-100 pointer-events-none transition-all translate-x-[-10px] group-hover:translate-x-0 z-50 whitespace-nowrap border border-white/10 shadow-2xl skew-x-[-5deg]">
       {title}
@@ -553,7 +552,7 @@ const SidebarLink = ({ icon, title, active, onClick }: any) => (
 );
 
 const MarketTicker = ({ label, value, isUp }: { label: string; value: string; isUp: boolean }) => (
-  <motion.div 
+  <motion.div
     key={value}
     initial={{ opacity: 0.5 }}
     animate={{ opacity: 1 }}
@@ -561,7 +560,7 @@ const MarketTicker = ({ label, value, isUp }: { label: string; value: string; is
   >
     <span className="font-mono text-[10px] text-muted">{label}</span>
     <span className="font-medium text-sm">₹{value}</span>
-    <motion.span 
+    <motion.span
       animate={{ scale: [1, 1.2, 1], color: isUp ? "#16a34a" : "#dc2626" }}
       className={`font-mono text-[9px] ${isUp ? 'text-green-600' : 'text-red-600'}`}
     >
@@ -584,11 +583,11 @@ const SentimentFactor = ({ label, value }: { label: string; value: number }) => 
       <span className="text-accent">{value}%</span>
     </div>
     <div className="h-[2px] bg-line overflow-hidden">
-      <motion.div 
+      <motion.div
         initial={{ width: 0 }}
         animate={{ width: `${value}%` }}
         transition={{ duration: 1, ease: "easeOut" }}
-        className="h-full bg-accent" 
+        className="h-full bg-accent"
       />
     </div>
   </div>
@@ -602,29 +601,29 @@ const TradingView = ({ onExpandStock }: { onExpandStock: (s: Nifty500Stock) => v
         <div className="flex justify-between items-start mb-8">
           <span className="label-mono">Live Depth Terminal</span>
           <div className="flex gap-4">
-             <div className="flex items-center gap-2">
-                <div className="w-2 h-2 rounded-full bg-green-500" />
-                <span className="label-mono text-[9px]">BID_X</span>
-             </div>
-             <div className="flex items-center gap-2">
-                <div className="w-2 h-2 rounded-full bg-red-500" />
-                <span className="label-mono text-[9px]">ASK_X</span>
-             </div>
+            <div className="flex items-center gap-2">
+              <div className="w-2 h-2 rounded-full bg-green-500" />
+              <span className="label-mono text-[9px]">BID_X</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="w-2 h-2 rounded-full bg-red-500" />
+              <span className="label-mono text-[9px]">ASK_X</span>
+            </div>
           </div>
         </div>
 
         <div className="grid grid-cols-2 gap-10">
           <div className="space-y-1">
-             <OrderEntry price="24,350.25" vol="1.2k" type="bid" />
-             <OrderEntry price="24,349.80" vol="0.8k" type="bid" opacity={0.8} />
-             <OrderEntry price="24,348.10" vol="2.4k" type="bid" opacity={0.6} />
-             <OrderEntry price="24,347.50" vol="1.1k" type="bid" opacity={0.4} />
+            <OrderEntry price="24,350.25" vol="1.2k" type="bid" />
+            <OrderEntry price="24,349.80" vol="0.8k" type="bid" opacity={0.8} />
+            <OrderEntry price="24,348.10" vol="2.4k" type="bid" opacity={0.6} />
+            <OrderEntry price="24,347.50" vol="1.1k" type="bid" opacity={0.4} />
           </div>
           <div className="space-y-1">
-             <OrderEntry price="24,351.40" vol="0.5k" type="ask" />
-             <OrderEntry price="24,352.15" vol="1.4k" type="ask" opacity={0.8} />
-             <OrderEntry price="24,353.90" vol="0.9k" type="ask" opacity={0.6} />
-             <OrderEntry price="24,354.20" vol="3.2k" type="ask" opacity={0.4} />
+            <OrderEntry price="24,351.40" vol="0.5k" type="ask" />
+            <OrderEntry price="24,352.15" vol="1.4k" type="ask" opacity={0.8} />
+            <OrderEntry price="24,353.90" vol="0.9k" type="ask" opacity={0.6} />
+            <OrderEntry price="24,354.20" vol="3.2k" type="ask" opacity={0.4} />
           </div>
         </div>
       </section>
@@ -640,10 +639,10 @@ const TradingView = ({ onExpandStock }: { onExpandStock: (s: Nifty500Stock) => v
         <section className="geometric-card">
           <span className="label-mono block mb-4">Risk Exposure</span>
           <div className="flex items-center justify-center p-4">
-             <div className="w-32 h-32 rounded-full border-4 border-accent border-r-transparent animate-spin-slow flex items-center justify-center relative">
-                <div className="absolute inset-2 rounded-full border-2 border-line/30" />
-                <span className="label-mono text-accent">V_RISK</span>
-             </div>
+            <div className="w-32 h-32 rounded-full border-4 border-accent border-r-transparent animate-spin-slow flex items-center justify-center relative">
+              <div className="absolute inset-2 rounded-full border-2 border-line/30" />
+              <span className="label-mono text-accent">V_RISK</span>
+            </div>
           </div>
         </section>
       </div>
@@ -651,31 +650,31 @@ const TradingView = ({ onExpandStock }: { onExpandStock: (s: Nifty500Stock) => v
 
     {/* Controls */}
     <div className="col-span-4 space-y-6">
-       <div className="geometric-card bg-ink text-white">
-          <span className="label-mono mb-6 block text-white/50 tracking-widest">ORDER_ENTRY</span>
-          <div className="space-y-4">
-             <div>
-                <label className="text-[10px] font-mono mb-2 block text-white/40">ASSET_ID</label>
-                <div className="bg-bg/10 border border-white/10 p-3 font-mono text-sm">SELECT...</div>
-             </div>
-             <div className="grid grid-cols-2 gap-4">
-                <button className="py-4 border border-green-500 text-green-500 font-bold hover:bg-green-500 hover:text-white transition-all">BUY</button>
-                <button className="py-4 border border-red-500 text-red-500 font-bold hover:bg-red-500 hover:text-white transition-all">SELL</button>
-             </div>
+      <div className="geometric-card bg-ink text-white">
+        <span className="label-mono mb-6 block text-white/50 tracking-widest">ORDER_ENTRY</span>
+        <div className="space-y-4">
+          <div>
+            <label className="text-[10px] font-mono mb-2 block text-white/40">ASSET_ID</label>
+            <div className="bg-bg/10 border border-white/10 p-3 font-mono text-sm">SELECT...</div>
           </div>
-       </div>
+          <div className="grid grid-cols-2 gap-4">
+            <button className="py-4 border border-green-500 text-green-500 font-bold hover:bg-green-500 hover:text-white transition-all">BUY</button>
+            <button className="py-4 border border-red-500 text-red-500 font-bold hover:bg-red-500 hover:text-white transition-all">SELL</button>
+          </div>
+        </div>
+      </div>
 
-       <div className="geometric-card">
-          <span className="label-mono mb-4 block">System Messages</span>
-          <div className="text-[11px] font-mono space-y-3 opacity-70">
-             <div className="flex gap-2">
-                <span className="text-accent">[SEC]</span> Checksum verified.
-             </div>
-             <div className="flex gap-2">
-                <span className="text-accent">[ORD]</span> Limit hit @ HDFC.
-             </div>
+      <div className="geometric-card">
+        <span className="label-mono mb-4 block">System Messages</span>
+        <div className="text-[11px] font-mono space-y-3 opacity-70">
+          <div className="flex gap-2">
+            <span className="text-accent">[SEC]</span> Checksum verified.
           </div>
-       </div>
+          <div className="flex gap-2">
+            <span className="text-accent">[ORD]</span> Limit hit @ HDFC.
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 );
@@ -690,7 +689,7 @@ const CandlestickChart = ({ data, color }: { data: any[]; color: string }) => {
       >
         <XAxis dataKey="time" hide />
         <YAxis domain={['auto', 'auto']} hide />
-        <RechartsTooltip 
+        <RechartsTooltip
           content={({ active, payload }) => {
             if (active && payload && payload.length) {
               const d = payload[0].payload;
@@ -705,7 +704,7 @@ const CandlestickChart = ({ data, color }: { data: any[]; color: string }) => {
               );
             }
             return null;
-          }} 
+          }}
         />
         {/* Wick */}
         <Bar
@@ -715,14 +714,14 @@ const CandlestickChart = ({ data, color }: { data: any[]; color: string }) => {
             const { x, y, width, height } = props;
             const wickWidth = 1;
             const centerX = x + width / 2;
-            
+
             return (
-              <line 
-                x1={centerX} 
-                y1={y} 
-                x2={centerX} 
-                y2={y + height} 
-                stroke="#8E8E8E" 
+              <line
+                x1={centerX}
+                y1={y}
+                x2={centerX}
+                y2={y + height}
+                stroke="#8E8E8E"
                 strokeWidth={wickWidth}
               />
             );
@@ -761,7 +760,7 @@ const TradingAside = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [sortConfig, setSortConfig] = useState<{ key: keyof Nifty500Stock; order: 'asc' | 'desc' }>({ key: 'symbol', order: 'asc' });
   const [signalFilter, setSignalFilter] = useState<'ALL' | 'BUY' | 'SELL' | 'NEUTRAL'>('ALL');
-  
+
   // Lazy Loading metrics state
   const [loadingMetrics, setLoadingMetrics] = useState<Record<string, boolean>>({});
   const [loadedMetrics, setLoadedMetrics] = useState<Record<string, boolean>>({});
@@ -807,42 +806,42 @@ const TradingAside = () => {
     const timer = setInterval(() => {
       setStocks(prev => prev.map(stock => {
         const newPrice = stock.price + (Math.random() - 0.5) * 4;
-        
+
         // Update candle history for the expanded stock in real-time
         if (expandedStock === stock.symbol) {
-           setCandleHistory(prevH => {
-             const history = [...(prevH[stock.symbol] || [])];
-             const lastCandle = history[history.length - 1];
-             
-             // Update the last candle or add a new one?
-             // For "real-time" feel, we update the current candle's close/high/low
-             if (lastCandle) {
-               const updatedCandle = {
-                 ...lastCandle,
-                 close: newPrice,
-                 high: Math.max(lastCandle.high, newPrice),
-                 low: Math.min(lastCandle.low, newPrice)
-               };
-               updatedCandle.bodyData = [Math.min(updatedCandle.open, updatedCandle.close), Math.max(updatedCandle.open, updatedCandle.close)];
-               updatedCandle.wickData = [updatedCandle.low, updatedCandle.high];
-               history[history.length - 1] = updatedCandle;
-             }
-             
-             // Every 10 ticks, add a new candle
-             if (Math.random() > 0.8 && history.length < 30) {
-                const open = newPrice;
-                const close = open;
-                history.push({
-                   time: history.length,
-                   open, close, high: open, low: open,
-                   bodyData: [open, open],
-                   wickData: [open, open]
-                });
-                if (history.length > 30) history.shift();
-             }
+          setCandleHistory(prevH => {
+            const history = [...(prevH[stock.symbol] || [])];
+            const lastCandle = history[history.length - 1];
 
-             return { ...prevH, [stock.symbol]: history };
-           });
+            // Update the last candle or add a new one?
+            // For "real-time" feel, we update the current candle's close/high/low
+            if (lastCandle) {
+              const updatedCandle = {
+                ...lastCandle,
+                close: newPrice,
+                high: Math.max(lastCandle.high, newPrice),
+                low: Math.min(lastCandle.low, newPrice)
+              };
+              updatedCandle.bodyData = [Math.min(updatedCandle.open, updatedCandle.close), Math.max(updatedCandle.open, updatedCandle.close)];
+              updatedCandle.wickData = [updatedCandle.low, updatedCandle.high];
+              history[history.length - 1] = updatedCandle;
+            }
+
+            // Every 10 ticks, add a new candle
+            if (Math.random() > 0.8 && history.length < 30) {
+              const open = newPrice;
+              const close = open;
+              history.push({
+                time: history.length,
+                open, close, high: open, low: open,
+                bodyData: [open, open],
+                wickData: [open, open]
+              });
+              if (history.length > 30) history.shift();
+            }
+
+            return { ...prevH, [stock.symbol]: history };
+          });
         }
 
         return {
@@ -881,64 +880,64 @@ const TradingAside = () => {
           <span className="label-mono tracking-[0.2em] text-accent uppercase">Quantum Filters</span>
           <Filter size={14} className="text-muted opacity-40 shadow-sm" />
         </div>
-        
+
         <div className="relative group">
-           <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted group-focus-within:text-accent transition-colors" />
-           <input 
-             type="text" 
-             placeholder="SEARCH_SYMBOL..." 
-             value={searchQuery}
-             onChange={(e) => setSearchQuery(e.target.value)}
-             className="w-full bg-bg border border-line pl-10 pr-4 py-2 font-mono text-[10px] outline-none hover:border-accent focus:border-accent transition-all uppercase"
-           />
+          <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted group-focus-within:text-accent transition-colors" />
+          <input
+            type="text"
+            placeholder="SEARCH_SYMBOL..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="w-full bg-bg border border-line pl-10 pr-4 py-2 font-mono text-[10px] outline-none hover:border-accent focus:border-accent transition-all uppercase"
+          />
         </div>
 
         <div className="grid grid-cols-2 gap-3">
-           <select 
-              value={indexFilter}
-              onChange={(e) => setIndexFilter(Number(e.target.value))}
-              className="bg-bg border border-line p-2 font-mono text-[10px] outline-none hover:border-accent transition-colors uppercase"
-           >
-              <option value={50}>NIFTY_50</option>
-              <option value={100}>NIFTY_100</option>
-              <option value={200}>NIFTY_200</option>
-              <option value={500}>NIFTY_500</option>
-           </select>
-           <select 
-              value={signalFilter}
-              onChange={(e) => setSignalFilter(e.target.value as any)}
-              className="bg-bg border border-line p-2 font-mono text-[10px] outline-none hover:border-accent transition-colors uppercase"
-           >
-              <option value="ALL">SIG_ALL</option>
-              <option value="BUY">SIG_BUY</option>
-              <option value="SELL">SIG_SELL</option>
-              <option value="NEUTRAL">SIG_NEUTRAL</option>
-           </select>
+          <select
+            value={indexFilter}
+            onChange={(e) => setIndexFilter(Number(e.target.value))}
+            className="bg-bg border border-line p-2 font-mono text-[10px] outline-none hover:border-accent transition-colors uppercase"
+          >
+            <option value={50}>NIFTY_50</option>
+            <option value={100}>NIFTY_100</option>
+            <option value={200}>NIFTY_200</option>
+            <option value={500}>NIFTY_500</option>
+          </select>
+          <select
+            value={signalFilter}
+            onChange={(e) => setSignalFilter(e.target.value as any)}
+            className="bg-bg border border-line p-2 font-mono text-[10px] outline-none hover:border-accent transition-colors uppercase"
+          >
+            <option value="ALL">SIG_ALL</option>
+            <option value="BUY">SIG_BUY</option>
+            <option value="SELL">SIG_SELL</option>
+            <option value="NEUTRAL">SIG_NEUTRAL</option>
+          </select>
         </div>
 
         <div className="flex gap-2">
-           <button 
-             onClick={() => toggleSort('price')} 
-             className={`flex-1 py-1.5 border font-mono text-[9px] transition-all flex items-center justify-center gap-1 ${sortConfig.key === 'price' ? 'bg-ink text-white border-ink' : 'bg-bg text-muted border-line hover:border-accent'}`}
-           >
-             SORT_PRICE {sortConfig.key === 'price' ? (sortConfig.order === 'asc' ? '↑' : '↓') : ''}
-           </button>
-           <button 
-             onClick={() => toggleSort('momentum')} 
-             className={`flex-1 py-1.5 border font-mono text-[9px] transition-all flex items-center justify-center gap-1 ${sortConfig.key === 'momentum' ? 'bg-ink text-white border-ink' : 'bg-bg text-muted border-line hover:border-accent'}`}
-           >
-             SORT_MOM {sortConfig.key === 'momentum' ? (sortConfig.order === 'asc' ? '↑' : '↓') : ''}
-           </button>
+          <button
+            onClick={() => toggleSort('price')}
+            className={`flex-1 py-1.5 border font-mono text-[9px] transition-all flex items-center justify-center gap-1 ${sortConfig.key === 'price' ? 'bg-ink text-white border-ink' : 'bg-bg text-muted border-line hover:border-accent'}`}
+          >
+            SORT_PRICE {sortConfig.key === 'price' ? (sortConfig.order === 'asc' ? '↑' : '↓') : ''}
+          </button>
+          <button
+            onClick={() => toggleSort('momentum')}
+            className={`flex-1 py-1.5 border font-mono text-[9px] transition-all flex items-center justify-center gap-1 ${sortConfig.key === 'momentum' ? 'bg-ink text-white border-ink' : 'bg-bg text-muted border-line hover:border-accent'}`}
+          >
+            SORT_MOM {sortConfig.key === 'momentum' ? (sortConfig.order === 'asc' ? '↑' : '↓') : ''}
+          </button>
         </div>
       </div>
 
       <div className="flex-1 overflow-y-auto no-scrollbar space-y-2 pb-10">
         {filteredStocks.map(stock => (
-          <div 
-            key={stock.symbol} 
+          <div
+            key={stock.symbol}
             className={`border transition-all duration-300 ${expandedStock === stock.symbol ? 'border-ink bg-white' : 'border-line bg-transparent hover:border-muted'}`}
           >
-            <div 
+            <div
               className="p-3 flex justify-between items-center cursor-pointer"
               onClick={() => setExpandedStock(expandedStock === stock.symbol ? null : stock.symbol)}
             >
@@ -956,7 +955,7 @@ const TradingAside = () => {
 
             <AnimatePresence>
               {expandedStock === stock.symbol && (
-                <motion.div 
+                <motion.div
                   initial={{ height: 0, opacity: 0 }}
                   animate={{ height: "auto", opacity: 1 }}
                   exit={{ height: 0, opacity: 0 }}
@@ -965,47 +964,47 @@ const TradingAside = () => {
                   <div className="p-4 space-y-4">
                     {/* Candlestick Chart */}
                     <div className="h-32 w-full bg-bg/30 border border-line p-2">
-                       <CandlestickChart 
-                         data={candleHistory[stock.symbol] || []} 
-                         color={stock.signal === 'BUY' ? '#16a34a' : stock.signal === 'SELL' ? '#dc2626' : '#0047FF'} 
-                       />
+                      <CandlestickChart
+                        data={candleHistory[stock.symbol] || []}
+                        color={stock.signal === 'BUY' ? '#16a34a' : stock.signal === 'SELL' ? '#dc2626' : '#0047FF'}
+                      />
                     </div>
 
                     <div className="space-y-4 min-h-[140px]">
                       <div className="label-mono text-[9px] text-accent font-black border-b border-accent/20 pb-1 tracking-[0.2em]">MODEL_ALPHA_FACTORS</div>
-                      
+
                       {loadingMetrics[stock.symbol] ? (
                         <div className="space-y-3 pt-2">
-                           {[1, 2, 3, 4, 5].map(i => (
-                             <div key={i} className="h-6 bg-bg animate-pulse border-l-2 border-line/10" />
-                           ))}
+                          {[1, 2, 3, 4, 5].map(i => (
+                            <div key={i} className="h-6 bg-bg animate-pulse border-l-2 border-line/10" />
+                          ))}
                         </div>
                       ) : loadedMetrics[stock.symbol] ? (
                         <>
-                          <AlphaMetric 
-                            label="MOMENTUM_12_1" 
-                            value={`${stock.momentum12_1}%`} 
-                            note="Cross-sectional price trend (12m - 1m)" 
+                          <AlphaMetric
+                            label="MOMENTUM_12_1"
+                            value={`${stock.momentum12_1}%`}
+                            note="Cross-sectional price trend (12m - 1m)"
                           />
-                          <AlphaMetric 
-                            label="RELATIVE_VOLUME" 
-                            value={`${stock.relVol}x`} 
-                            note="Liquidity & institutional flow" 
+                          <AlphaMetric
+                            label="RELATIVE_VOLUME"
+                            value={`${stock.relVol}x`}
+                            note="Liquidity & institutional flow"
                           />
-                          <AlphaMetric 
-                            label="RSI_MONTHLY" 
-                            value={stock.rsiMonthly} 
-                            note="Rel. Strength Index (Mean-Reversion)" 
+                          <AlphaMetric
+                            label="RSI_MONTHLY"
+                            value={stock.rsiMonthly}
+                            note="Rel. Strength Index (Mean-Reversion)"
                           />
-                          <AlphaMetric 
-                            label="BB_BANDWIDTH" 
-                            value={`${stock.bbBandwidth}%`} 
-                            note="Volatility-adjusted price extension" 
+                          <AlphaMetric
+                            label="BB_BANDWIDTH"
+                            value={`${stock.bbBandwidth}%`}
+                            note="Volatility-adjusted price extension"
                           />
-                          <AlphaMetric 
-                            label="MARKET_BETA" 
-                            value={stock.marketBeta} 
-                            note="Systematic risk sensitivity (^NSEI)" 
+                          <AlphaMetric
+                            label="MARKET_BETA"
+                            value={stock.marketBeta}
+                            note="Systematic risk sensitivity (^NSEI)"
                           />
                         </>
                       ) : (
@@ -1013,11 +1012,10 @@ const TradingAside = () => {
                       )}
 
                       <div className="pt-2">
-                        <button className={`w-full py-2 font-mono text-[10px] uppercase font-bold tracking-widest ${
-                          stock.signal === 'BUY' ? 'bg-green-600 text-white' : 
-                          stock.signal === 'SELL' ? 'bg-red-600 text-white' : 
-                          'bg-ink text-white'
-                        }`}>
+                        <button className={`w-full py-2 font-mono text-[10px] uppercase font-bold tracking-widest ${stock.signal === 'BUY' ? 'bg-green-600 text-white' :
+                            stock.signal === 'SELL' ? 'bg-red-600 text-white' :
+                              'bg-ink text-white'
+                          }`}>
                           EXECUTE {stock.signal}
                         </button>
                       </div>
@@ -1047,26 +1045,26 @@ const AlphaMetric = ({ label, value, note }: { label: string; value: string | nu
 
 const OrderEntry = ({ price, vol, type, opacity = 1 }: { price: string; vol: string; type: 'bid' | 'ask'; opacity?: number }) => (
   <div className="flex justify-between items-center py-1.5 px-3 hover:bg-bg transition-colors" style={{ opacity }}>
-     <span className={`font-mono text-[11px] font-bold ${type === 'bid' ? 'text-green-600' : 'text-red-600'}`}>{price}</span>
-     <span className="font-mono text-[10px]">{vol}</span>
+    <span className={`font-mono text-[11px] font-bold ${type === 'bid' ? 'text-green-600' : 'text-red-600'}`}>{price}</span>
+    <span className="font-mono text-[10px]">{vol}</span>
   </div>
 );
 
 const PositionRow = ({ symbol, side, qty, pnl }: { symbol: string; side: 'BUY' | 'SELL'; qty: number; pnl: number }) => (
   <div className="flex justify-between items-center py-2 border-b border-line px-1 hover:bg-bg">
-     <div>
-        <div className="text-[10px] font-bold">{symbol}</div>
-        <div className={`text-[8px] font-mono ${side === 'BUY' ? 'text-green-600' : 'text-red-600'}`}>{side} {qty}L</div>
-     </div>
-     <div className={`text-sm font-light ${pnl >= 0 ? 'text-green-600' : 'text-red-600'}`}>
-        ₹{pnl.toLocaleString()}
-     </div>
+    <div>
+      <div className="text-[10px] font-bold">{symbol}</div>
+      <div className={`text-[8px] font-mono ${side === 'BUY' ? 'text-green-600' : 'text-red-600'}`}>{side} {qty}L</div>
+    </div>
+    <div className={`text-sm font-light ${pnl >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+      ₹{pnl.toLocaleString()}
+    </div>
   </div>
 );
 
 const ResearchView = ({ onExpandStock }: { onExpandStock: (s: Nifty500Stock) => void }) => {
   const [timeframe, setTimeframe] = useState('1hr');
-  
+
   const generateData = (tf: string) => {
     let count = 50;
     let basePrice = 24000;
@@ -1144,13 +1142,13 @@ const ResearchView = ({ onExpandStock }: { onExpandStock: (s: Nifty500Stock) => 
         <div className="flex items-center gap-6">
           <div className="label-mono text-accent font-bold">NIFTY 500 INDEX (REAL-TIME LIVE)</div>
           <div className="flex gap-2">
-            <button 
+            <button
               onClick={() => toggleIndicator('sma')}
               className={`px-3 py-1 border font-mono text-[10px] ${indicators.sma ? 'bg-accent text-white border-accent' : 'border-line text-muted'}`}
             >
               SMA Overlay
             </button>
-            <button 
+            <button
               onClick={() => toggleIndicator('ema')}
               className={`px-3 py-1 border font-mono text-[10px] ${indicators.ema ? 'bg-accent text-white border-accent' : 'border-line text-muted'}`}
             >
@@ -1160,7 +1158,7 @@ const ResearchView = ({ onExpandStock }: { onExpandStock: (s: Nifty500Stock) => 
         </div>
 
         <div className="flex items-center gap-4">
-          <button 
+          <button
             onClick={() => setIsDrawing(!isDrawing)}
             className={`w-8 h-8 flex items-center justify-center border ${isDrawing ? 'bg-ink text-white border-ink' : 'border-line text-muted hover:border-ink'}`}
           >
@@ -1184,13 +1182,13 @@ const ResearchView = ({ onExpandStock }: { onExpandStock: (s: Nifty500Stock) => 
             </button>
           ))}
         </div>
-        
+
         <ResponsiveContainer width="100%" height="100%">
           <ComposedChart data={data} onClick={handleChartClick}>
             <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#E5E7EB" />
             <XAxis dataKey="time" hide />
-            <YAxis domain={['auto', 'auto']} orientation="right" tick={{fontSize: 10, fill: '#8E8E8E'}} axisLine={false} tickLine={false} />
-            <RechartsTooltip 
+            <YAxis domain={['auto', 'auto']} orientation="right" tick={{ fontSize: 10, fill: '#8E8E8E' }} axisLine={false} tickLine={false} />
+            <RechartsTooltip
               contentStyle={{ background: '#121212', border: 'none', color: '#fff' }}
               labelStyle={{ color: '#8E8E8E' }}
               animationDuration={0}
@@ -1198,12 +1196,12 @@ const ResearchView = ({ onExpandStock }: { onExpandStock: (s: Nifty500Stock) => 
             <Area type="monotone" dataKey="price" stroke="#0047FF" fill="url(#colorPrice)" strokeWidth={2} isAnimationActive={false} />
             {indicators.sma && <Line type="monotone" dataKey="sma" stroke="#EF4444" strokeWidth={1} dot={false} strokeDasharray="5 5" isAnimationActive={false} />}
             {indicators.ema && <Line type="monotone" dataKey="ema" stroke="#10B981" strokeWidth={1} dot={false} strokeDasharray="5 5" isAnimationActive={false} />}
-            
+
             {/* Custom Trendlines */}
             {trendlines.map((line, idx) => (
-              <Line 
-                key={idx} 
-                data={[{time: line.start.x, price: line.start.y}, {time: line.end.x, price: line.end.y}]}
+              <Line
+                key={idx}
+                data={[{ time: line.start.x, price: line.start.y }, { time: line.end.x, price: line.end.y }]}
                 type="linear"
                 dataKey="price"
                 stroke="#000"
@@ -1215,13 +1213,13 @@ const ResearchView = ({ onExpandStock }: { onExpandStock: (s: Nifty500Stock) => 
 
             <defs>
               <linearGradient id="colorPrice" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="#0047FF" stopOpacity={0.1}/>
-                <stop offset="95%" stopColor="#0047FF" stopOpacity={0}/>
+                <stop offset="5%" stopColor="#0047FF" stopOpacity={0.1} />
+                <stop offset="95%" stopColor="#0047FF" stopOpacity={0} />
               </linearGradient>
             </defs>
           </ComposedChart>
         </ResponsiveContainer>
-        
+
         {isDrawing && !drawStart && (
           <div className="absolute bottom-8 left-1/2 -translate-x-1/2 bg-ink text-white text-[10px] px-3 py-1 font-mono tracking-widest z-10 shadow-lg">
             CLICK TO START LINE
@@ -1295,61 +1293,61 @@ const ResearchAside = ({ onExpandStock }: { onExpandStock: (s: Nifty500Stock) =>
     <div className="animate-in fade-in slide-in-from-right duration-500 h-full flex flex-col">
       <div className="mb-6">
         <div className="flex justify-between items-center mb-6">
-           <span className="label-mono tracking-[0.2em] text-accent uppercase">NIFTY 500 REAL-TIME</span>
-           <SlidersHorizontal size={14} className="text-muted opacity-40 shadow-sm" />
+          <span className="label-mono tracking-[0.2em] text-accent uppercase">NIFTY 500 REAL-TIME</span>
+          <SlidersHorizontal size={14} className="text-muted opacity-40 shadow-sm" />
         </div>
 
         <div className="space-y-4 mb-6">
-           <div className="relative group">
-              <Search size={12} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted group-focus-within:text-accent transition-colors" />
-              <input 
-                type="text" 
-                placeholder="Universal Search..." 
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full bg-white border border-line pl-8 pr-4 py-2 font-mono text-[9px] outline-none focus:border-accent transition-all uppercase"
-              />
-           </div>
-           
-           <div className="bg-white border border-line p-3">
-              <div className="flex justify-between items-center mb-2">
-                 <span className="label-mono text-[8px] uppercase tracking-widest text-muted">Min Composite Score: {minComposite}</span>
-              </div>
-              <input 
-                type="range" 
-                min="0" 
-                max="100" 
-                value={minComposite}
-                onChange={(e) => setMinComposite(Number(e.target.value))}
-                className="w-full h-1 bg-line rounded-lg appearance-none cursor-pointer accent-accent"
-              />
-           </div>
+          <div className="relative group">
+            <Search size={12} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted group-focus-within:text-accent transition-colors" />
+            <input
+              type="text"
+              placeholder="Universal Search..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full bg-white border border-line pl-8 pr-4 py-2 font-mono text-[9px] outline-none focus:border-accent transition-all uppercase"
+            />
+          </div>
+
+          <div className="bg-white border border-line p-3">
+            <div className="flex justify-between items-center mb-2">
+              <span className="label-mono text-[8px] uppercase tracking-widest text-muted">Min Composite Score: {minComposite}</span>
+            </div>
+            <input
+              type="range"
+              min="0"
+              max="100"
+              value={minComposite}
+              onChange={(e) => setMinComposite(Number(e.target.value))}
+              className="w-full h-1 bg-line rounded-lg appearance-none cursor-pointer accent-accent"
+            />
+          </div>
         </div>
 
         <div className="bg-white border border-line p-1 overflow-x-auto no-scrollbar">
           <table className="w-full text-[9px] font-mono">
             <thead>
               <tr className="border-b border-line text-muted">
-                <th 
+                <th
                   className={`text-left font-bold py-2 cursor-pointer hover:text-accent transition-colors ${sortConfig.key === 'symbol' ? 'text-accent' : ''}`}
                   onClick={() => handleSort('symbol')}
                 >
                   STOCK {sortConfig.key === 'symbol' && (sortConfig.order === 'asc' ? '↑' : '↓')}
                 </th>
                 <th className="text-center font-normal py-2">LIVE</th>
-                <th 
+                <th
                   className={`text-right font-bold py-2 px-2 cursor-pointer hover:text-accent transition-colors ${sortConfig.key === 'momentum' ? 'text-accent' : ''}`}
                   onClick={() => handleSort('momentum')}
                 >
                   MOM {sortConfig.key === 'momentum' && (sortConfig.order === 'asc' ? '↑' : '↓')}
                 </th>
-                <th 
+                <th
                   className={`text-right font-bold py-2 px-2 cursor-pointer hover:text-accent transition-colors ${sortConfig.key === 'valuation' ? 'text-accent' : ''}`}
                   onClick={() => handleSort('valuation')}
                 >
                   VAL {sortConfig.key === 'valuation' && (sortConfig.order === 'asc' ? '↑' : '↓')}
                 </th>
-                <th 
+                <th
                   className={`text-right font-bold py-2 px-2 cursor-pointer hover:text-accent transition-colors ${sortConfig.key === 'compositeScore' ? 'text-accent' : ''}`}
                   onClick={() => handleSort('compositeScore')}
                 >
@@ -1359,8 +1357,8 @@ const ResearchAside = ({ onExpandStock }: { onExpandStock: (s: Nifty500Stock) =>
             </thead>
             <tbody>
               {filteredStocks.map(stock => (
-                <tr 
-                  key={stock.symbol} 
+                <tr
+                  key={stock.symbol}
                   onClick={() => onExpandStock(stock)}
                   className="border-b border-line/50 last:border-0 hover:bg-bg group cursor-pointer"
                 >
@@ -1369,18 +1367,17 @@ const ResearchAside = ({ onExpandStock }: { onExpandStock: (s: Nifty500Stock) =>
                     <div className="text-[7px] text-muted truncate max-w-[50px]">{stock.name}</div>
                   </td>
                   <td className="px-2 min-w-[60px] h-10">
-                    <CandleMini chartData={Array.from({length: 6}, (_, i) => ({ o: 10 + Math.random()*2, c: 10 + Math.random()*2, h: 13, l: 8 }))} live />
+                    <CandleMini chartData={Array.from({ length: 6 }, (_, i) => ({ o: 10 + Math.random() * 2, c: 10 + Math.random() * 2, h: 13, l: 8 }))} live />
                   </td>
                   <td className="text-right px-2">{stock.momentum}</td>
                   <td className="text-right px-2">{stock.valuation}</td>
                   <td className="text-right px-2">{stock.quality}</td>
                   <td className="text-right px-2 font-bold">{stock.compositeScore}</td>
                   <td className="text-center py-2">
-                    <span className={`px-1 rounded-[1px] ${
-                      stock.signal === 'BUY' ? 'bg-green-100 text-green-700' : 
-                      stock.signal === 'SELL' ? 'bg-red-100 text-red-700' : 
-                      'bg-gray-100 text-gray-500'
-                    }`}>
+                    <span className={`px-1 rounded-[1px] ${stock.signal === 'BUY' ? 'bg-green-100 text-green-700' :
+                        stock.signal === 'SELL' ? 'bg-red-100 text-red-700' :
+                          'bg-gray-100 text-gray-500'
+                      }`}>
                       {stock.signal}
                     </span>
                   </td>
@@ -1395,14 +1392,14 @@ const ResearchAside = ({ onExpandStock }: { onExpandStock: (s: Nifty500Stock) =>
         <span className="label-mono block mb-4 text-[10px] text-accent uppercase">VORTEX PATTERN SCAN</span>
         <div className="space-y-3">
           <div className="flex justify-between items-center text-[11px] font-mono">
-             <span>Pattern Confidence</span>
-             <span className="font-bold">88.4%</span>
+            <span>Pattern Confidence</span>
+            <span className="font-bold">88.4%</span>
           </div>
           <div className="h-1 bg-line">
-            <motion.div 
+            <motion.div
               initial={{ width: 0 }}
               animate={{ width: '88.4%' }}
-              className="h-full bg-accent" 
+              className="h-full bg-accent"
             />
           </div>
         </div>
@@ -1440,7 +1437,7 @@ const AnalyticsView = () => {
   // Generate distinct model characteristics
   const runInference = () => {
     setIsRunning(true);
-    
+
     // Simulate training/testing latency
     setTimeout(() => {
       let r2, mse, scatter, sectorsData, shap, table;
@@ -1508,7 +1505,7 @@ const AnalyticsView = () => {
       setIsRunning(false);
     }, 1500);
   };
-  
+
   useEffect(() => {
     if (!testResult) runInference();
   }, []);
@@ -1521,14 +1518,14 @@ const AnalyticsView = () => {
           {isRunning ? 'TEST_IN_PROGRESS_UPLINK_STABLE' : 'ENGINE READY FOR INFERENCE'}
         </span>
       </div>
-      
+
       <div className="flex items-baseline justify-between mb-4">
         <div className="flex items-baseline gap-2">
           <h2 className="text-4xl font-light tracking-tighter text-ink">ML Predictions</h2>
           <span className="text-xl text-muted font-light tracking-tighter">/ NIFTY 500</span>
         </div>
-        
-        <button 
+
+        <button
           onClick={runInference}
           disabled={isRunning}
           className={`btn-geometric flex items-center gap-2 group px-8 ${isRunning ? 'opacity-50' : ''}`}
@@ -1542,40 +1539,40 @@ const AnalyticsView = () => {
         <div className="col-span-4 flex flex-col gap-6">
           <div className="geometric-card">
             <div className="flex justify-between items-center mb-6">
-               <span className="label-mono text-[10px]">Select Inference Model</span>
-               <span className="text-[8px] bg-accent/10 text-accent px-2 py-0.5 font-bold tracking-widest">
-                 {isRunning ? 'ALLOCATING CORES' : 'READY'}
-               </span>
+              <span className="label-mono text-[10px]">Select Inference Model</span>
+              <span className="text-[8px] bg-accent/10 text-accent px-2 py-0.5 font-bold tracking-widest">
+                {isRunning ? 'ALLOCATING CORES' : 'READY'}
+              </span>
             </div>
-            
+
             <div className="space-y-3">
-               <ModelCard 
-                 icon={<TrendingUp size={16} />} 
-                 title="Linear Regression" 
-                 subtitle="BASELINE MODEL" 
-                 active={selectedModel === 'linear'}
-                 onClick={() => setSelectedModel('linear')}
-               />
-               <ModelCard 
-                 icon={<Activity size={16} />} 
-                 title="Ridge Regression" 
-                 subtitle="L2 REGULARIZATION" 
-                 active={selectedModel === 'ridge'}
-                 onClick={() => setSelectedModel('ridge')}
-               />
-               <ModelCard 
-                 icon={<BarChart3 size={16} />} 
-                 title="Random Forest" 
-                 subtitle="ENSEMBLE LEARNING" 
-                 active={selectedModel === 'forest'}
-                 onClick={() => setSelectedModel('forest')}
-               />
-               <ModelCard 
-                 icon={<Cpu size={16} />} 
-                 title="Transformers / LSTM" 
-                 subtitle="UPCOMING IN V3.0" 
-                 locked
-               />
+              <ModelCard
+                icon={<TrendingUp size={16} />}
+                title="Linear Regression"
+                subtitle="BASELINE MODEL"
+                active={selectedModel === 'linear'}
+                onClick={() => setSelectedModel('linear')}
+              />
+              <ModelCard
+                icon={<Activity size={16} />}
+                title="Ridge Regression"
+                subtitle="L2 REGULARIZATION"
+                active={selectedModel === 'ridge'}
+                onClick={() => setSelectedModel('ridge')}
+              />
+              <ModelCard
+                icon={<BarChart3 size={16} />}
+                title="Random Forest"
+                subtitle="ENSEMBLE LEARNING"
+                active={selectedModel === 'forest'}
+                onClick={() => setSelectedModel('forest')}
+              />
+              <ModelCard
+                icon={<Cpu size={16} />}
+                title="Transformers / LSTM"
+                subtitle="UPCOMING IN V3.0"
+                locked
+              />
             </div>
           </div>
 
@@ -1591,12 +1588,12 @@ const AnalyticsView = () => {
               )}
             </div>
             <div className="h-1 bg-line relative overflow-hidden">
-               <motion.div 
-                 initial={{ width: 0 }}
-                 animate={{ width: `${(testResult?.accuracy.r2 || 0) * 100}%` }}
-                 transition={{ duration: 1, ease: "easeOut" }}
-                 className="absolute inset-0 bg-accent"
-               />
+              <motion.div
+                initial={{ width: 0 }}
+                animate={{ width: `${(testResult?.accuracy.r2 || 0) * 100}%` }}
+                transition={{ duration: 1, ease: "easeOut" }}
+                className="absolute inset-0 bg-accent"
+              />
             </div>
           </div>
 
@@ -1624,14 +1621,14 @@ const AnalyticsView = () => {
               </p>
             </div>
             <div className="flex gap-4">
-               <div className="flex items-center gap-2">
-                 <div className="w-1.5 h-1.5 rounded-full bg-cyan-400" />
-                 <span className="label-mono text-[8px]">Predicted</span>
-               </div>
-               <div className="flex items-center gap-2">
-                 <div className="w-1.5 h-1.5 rounded-full bg-purple-400" />
-                 <span className="label-mono text-[8px]">Variance</span>
-               </div>
+              <div className="flex items-center gap-2">
+                <div className="w-1.5 h-1.5 rounded-full bg-cyan-400" />
+                <span className="label-mono text-[8px]">Predicted</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="w-1.5 h-1.5 rounded-full bg-purple-400" />
+                <span className="label-mono text-[8px]">Variance</span>
+              </div>
             </div>
           </div>
 
@@ -1639,42 +1636,42 @@ const AnalyticsView = () => {
             <ResponsiveContainer width="100%" height={300}>
               <ComposedChart data={testResult?.scatterData || []}>
                 <CartesianGrid strokeDasharray="1 1" vertical={false} stroke="#E5E7EB" />
-                <XAxis 
-                  dataKey="volatility" 
-                  axisLine={false} 
-                  tickLine={false} 
+                <XAxis
+                  dataKey="volatility"
+                  axisLine={false}
+                  tickLine={false}
                   tick={{ fontSize: 9, fill: '#8E8E8E' }}
                 />
-                <YAxis 
-                   axisLine={false} 
-                   tickLine={false} 
-                   tick={{ fontSize: 9, fill: '#8E8E8E' }}
+                <YAxis
+                  axisLine={false}
+                  tickLine={false}
+                  tick={{ fontSize: 9, fill: '#8E8E8E' }}
                 />
                 <RechartsTooltip content={<CustomScatterTooltip />} />
-                
-                <Line 
-                  type={selectedModel === 'forest' ? 'stepAfter' : 'monotone'} 
-                  dataKey="volatility" 
-                  stroke="#0047FF" 
-                  strokeWidth={2} 
+
+                <Line
+                  type={selectedModel === 'forest' ? 'stepAfter' : 'monotone'}
+                  dataKey="volatility"
+                  stroke="#0047FF"
+                  strokeWidth={2}
                   strokeDasharray={selectedModel === 'ridge' ? "2 2" : "4 4"}
                   dot={false}
                 />
-                
-                <Area 
-                  type="monotone" 
-                  dataKey="returns" 
-                  stroke="none" 
-                  fill="none" 
-                  dot={{ r: 4, fill: '#22d3ee', fillOpacity: 0.8, stroke: '#fff', strokeWidth: 1 }} 
+
+                <Area
+                  type="monotone"
+                  dataKey="returns"
+                  stroke="none"
+                  fill="none"
+                  dot={{ r: 4, fill: '#22d3ee', fillOpacity: 0.8, stroke: '#fff', strokeWidth: 1 }}
                 />
-                
-                <Area 
-                  type="monotone" 
-                  dataKey="variance" 
-                  stroke="none" 
-                  fill="none" 
-                  dot={{ r: 8, fill: '#c084fc', fillOpacity: 0.6, stroke: '#fff', strokeWidth: 1 }} 
+
+                <Area
+                  type="monotone"
+                  dataKey="variance"
+                  stroke="none"
+                  fill="none"
+                  dot={{ r: 8, fill: '#c084fc', fillOpacity: 0.6, stroke: '#fff', strokeWidth: 1 }}
                 />
               </ComposedChart>
             </ResponsiveContainer>
@@ -1686,49 +1683,49 @@ const AnalyticsView = () => {
         <div className="col-span-7 relative">
           {isRunning && <LoadingOverlay message="MAPPING CONFIDENCE" />}
           <div className="flex justify-between items-center mb-6">
-             <span className="label-mono">Sector Confidence Heatmap</span>
-             <div className="flex gap-4">
-                <LegendItem color="bg-line" label="Low" />
-                <LegendItem color="bg-accent/30" label="Mid" />
-                <LegendItem color="bg-accent" label="High" />
-             </div>
+            <span className="label-mono">Sector Confidence Heatmap</span>
+            <div className="flex gap-4">
+              <LegendItem color="bg-line" label="Low" />
+              <LegendItem color="bg-accent/30" label="Mid" />
+              <LegendItem color="bg-accent" label="High" />
+            </div>
           </div>
           <div className="grid grid-cols-3 gap-3">
-             {(testResult?.sectors || []).map(s => (
-               <div key={s.name} className={`p-6 border border-line flex flex-col items-center justify-center transition-all hover:border-accent group ${s.confidence === 'High' ? 'bg-accent/5' : 'bg-transparent'}`}>
-                  <div className="label-mono text-[9px] text-muted group-hover:text-accent mb-2 uppercase tracking-widest">{s.name}</div>
-                  <div className={`text-[10px] font-bold tracking-[0.2em] font-mono ${s.confidence === 'High' ? 'text-accent' : 'text-muted'}`}>{(s.confidence || '').toUpperCase()}</div>
-               </div>
-             ))}
+            {(testResult?.sectors || []).map(s => (
+              <div key={s.name} className={`p-6 border border-line flex flex-col items-center justify-center transition-all hover:border-accent group ${s.confidence === 'High' ? 'bg-accent/5' : 'bg-transparent'}`}>
+                <div className="label-mono text-[9px] text-muted group-hover:text-accent mb-2 uppercase tracking-widest">{s.name}</div>
+                <div className={`text-[10px] font-bold tracking-[0.2em] font-mono ${s.confidence === 'High' ? 'text-accent' : 'text-muted'}`}>{(s.confidence || '').toUpperCase()}</div>
+              </div>
+            ))}
           </div>
         </div>
 
         <div className="col-span-5 geometric-card relative">
-           {isRunning && <LoadingOverlay message="SYNCING SYMBOLS" />}
-           <div className="flex justify-between items-center mb-6">
-              <span className="label-mono text-ink">Model Forecast Accuracy</span>
-              <Activity size={12} className="text-muted" />
-           </div>
-           <table className="w-full text-[10px] font-mono">
-              <thead>
-                 <tr className="text-muted border-b border-line">
-                    <th className="text-left py-2 font-normal text-muted/60">SYMBOL</th>
-                    <th className="text-right py-2 font-normal text-muted/60">PRED.</th>
-                    <th className="text-right py-2 font-normal text-muted/60">ACTUAL</th>
-                    <th className="text-right py-2 font-normal text-muted/60">DELTA</th>
-                 </tr>
-              </thead>
-              <tbody className="divide-y divide-line/20">
-                 {(testResult?.tableData || []).map(row => (
-                   <tr key={row.symbol} className="hover:bg-bg transition-colors">
-                      <td className="py-2.5 font-bold text-ink">{row.symbol}</td>
-                      <td className="text-right py-2.5 text-accent font-bold">{row.pred}</td>
-                      <td className="text-right py-2.5 text-muted">{row.actual}</td>
-                      <td className="text-right py-2.5 font-bold text-green-600">{row.delta}</td>
-                   </tr>
-                 ))}
-              </tbody>
-           </table>
+          {isRunning && <LoadingOverlay message="SYNCING SYMBOLS" />}
+          <div className="flex justify-between items-center mb-6">
+            <span className="label-mono text-ink">Model Forecast Accuracy</span>
+            <Activity size={12} className="text-muted" />
+          </div>
+          <table className="w-full text-[10px] font-mono">
+            <thead>
+              <tr className="text-muted border-b border-line">
+                <th className="text-left py-2 font-normal text-muted/60">SYMBOL</th>
+                <th className="text-right py-2 font-normal text-muted/60">PRED.</th>
+                <th className="text-right py-2 font-normal text-muted/60">ACTUAL</th>
+                <th className="text-right py-2 font-normal text-muted/60">DELTA</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-line/20">
+              {(testResult?.tableData || []).map(row => (
+                <tr key={row.symbol} className="hover:bg-bg transition-colors">
+                  <td className="py-2.5 font-bold text-ink">{row.symbol}</td>
+                  <td className="text-right py-2.5 text-accent font-bold">{row.pred}</td>
+                  <td className="text-right py-2.5 text-muted">{row.actual}</td>
+                  <td className="text-right py-2.5 font-bold text-green-600">{row.delta}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       </div>
 
@@ -1743,7 +1740,7 @@ const LoadingOverlay = ({ message }: { message: string }) => (
     <div className="w-10 h-10 border-2 border-accent border-r-transparent rounded-full animate-spin mb-4" />
     <div className="label-mono text-[10px] text-accent font-black tracking-widest animate-pulse">{message}</div>
     <div className="mt-4 w-32 h-[1px] bg-line relative overflow-hidden">
-      <motion.div 
+      <motion.div
         animate={{ x: ['-100%', '100%'] }}
         transition={{ repeat: Infinity, duration: 1, ease: "linear" }}
         className="absolute inset-0 bg-accent w-1/2"
@@ -1758,10 +1755,10 @@ const PortfolioView = ({ onExpandStock }: { onExpandStock: (s: Nifty500Stock) =>
   const [watchlist, setWatchlist] = useState<string[]>(['RELIANCE', 'TCS', 'ZOMATO']);
   const [activeSubTab, setActiveSubTab] = useState<'holdings' | 'mtf'>('holdings');
   const [localHoldings, setLocalHoldings] = useState([
-    { symbol: 'RELIANCE', qty: 10, avgPrice: 2800.00, currentPrice: 2942.50 + Math.random()*20, index: 50 },
-    { symbol: 'INFY', qty: 25, avgPrice: 1750.00, currentPrice: 1892.40 + Math.random()*15, index: 50 },
-    { symbol: 'DLF', qty: 100, avgPrice: 850.00, currentPrice: 920.40 + Math.random()*5, index: 500 },
-    { symbol: 'BAJFINANCE', qty: 5, avgPrice: 7200.00, currentPrice: 6845.00 + Math.random()*50, index: 100 },
+    { symbol: 'RELIANCE', qty: 10, avgPrice: 2800.00, currentPrice: 2942.50 + Math.random() * 20, index: 50 },
+    { symbol: 'INFY', qty: 25, avgPrice: 1750.00, currentPrice: 1892.40 + Math.random() * 15, index: 50 },
+    { symbol: 'DLF', qty: 100, avgPrice: 850.00, currentPrice: 920.40 + Math.random() * 5, index: 500 },
+    { symbol: 'BAJFINANCE', qty: 5, avgPrice: 7200.00, currentPrice: 6845.00 + Math.random() * 50, index: 100 },
   ]);
 
   useEffect(() => {
@@ -1791,172 +1788,172 @@ const PortfolioView = ({ onExpandStock }: { onExpandStock: (s: Nifty500Stock) =>
           <span className="text-xl text-muted font-light tracking-tighter">/ Global Portfolio</span>
         </div>
         <div className="flex gap-4">
-           <div className="geometric-card py-2 px-6 flex flex-col items-end border-accent/20 bg-accent/5">
-              <span className="label-mono text-[8px] opacity-40">Portfolio Value</span>
-              <span className="text-xl font-mono font-bold">₹{currentValuation.toLocaleString()}</span>
-           </div>
-           <div className={`geometric-card py-2 px-6 flex flex-col items-end border-line ${totalPnL >= 0 ? 'bg-green-50' : 'bg-red-50'}`}>
-              <span className="label-mono text-[8px] opacity-40">Unrealized P&L</span>
-              <span className={`text-xl font-mono font-bold ${totalPnL >= 0 ? 'text-green-600' : 'text-red-600'}`}>
-                {totalPnL >= 0 ? '+' : ''}{totalPnL.toLocaleString()} ({pnlPercent.toFixed(2)}%)
-              </span>
-           </div>
+          <div className="geometric-card py-2 px-6 flex flex-col items-end border-accent/20 bg-accent/5">
+            <span className="label-mono text-[8px] opacity-40">Portfolio Value</span>
+            <span className="text-xl font-mono font-bold">₹{currentValuation.toLocaleString()}</span>
+          </div>
+          <div className={`geometric-card py-2 px-6 flex flex-col items-end border-line ${totalPnL >= 0 ? 'bg-green-50' : 'bg-red-50'}`}>
+            <span className="label-mono text-[8px] opacity-40">Unrealized P&L</span>
+            <span className={`text-xl font-mono font-bold ${totalPnL >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+              {totalPnL >= 0 ? '+' : ''}{totalPnL.toLocaleString()} ({pnlPercent.toFixed(2)}%)
+            </span>
+          </div>
         </div>
       </div>
 
       <section className="col-span-12 grid grid-cols-4 gap-8">
-         <IntelligenceMetric label="SHARPE_RATIO" value="1.84" status="EXCELLENT" trend="up" />
-         <IntelligenceMetric label="VOLATILITY_SIGMA" value="0.12" status="LOW" trend="down" />
-         <IntelligenceMetric label="BETA_SENSITIVITY" value="0.94" status="CORRELATED" trend="stable" />
-         <IntelligenceMetric label="ALPHA_GENERATION" value="+4.2%" status="HIGH" trend="up" />
+        <IntelligenceMetric label="SHARPE_RATIO" value="1.84" status="EXCELLENT" trend="up" />
+        <IntelligenceMetric label="VOLATILITY_SIGMA" value="0.12" status="LOW" trend="down" />
+        <IntelligenceMetric label="BETA_SENSITIVITY" value="0.94" status="CORRELATED" trend="stable" />
+        <IntelligenceMetric label="ALPHA_GENERATION" value="+4.2%" status="HIGH" trend="up" />
       </section>
 
       <div className="grid grid-cols-12 gap-8">
         {/* Market Exposure Distribution */}
         <section className="col-span-12 geometric-card grid grid-cols-4 gap-0 divide-x divide-line p-0 overflow-hidden">
-           <ExposureCard title="NIFTY 50" value="₹1.4M" weight={65} color="#0047FF" />
-           <ExposureCard title="NIFTY 200" value="₹0.4M" weight={25} color="#c084fc" />
-           <ExposureCard title="NIFTY 500" value="₹0.2M" weight={10} color="#22d3ee" />
-           <ExposureCard title="MTF_MARGIN" value="₹4.5M" weight={85} color="#F27D26" label="LIMIT_AVAIL" />
+          <ExposureCard title="NIFTY 50" value="₹1.4M" weight={65} color="#0047FF" />
+          <ExposureCard title="NIFTY 200" value="₹0.4M" weight={25} color="#c084fc" />
+          <ExposureCard title="NIFTY 500" value="₹0.2M" weight={10} color="#22d3ee" />
+          <ExposureCard title="MTF_MARGIN" value="₹4.5M" weight={85} color="#F27D26" label="LIMIT_AVAIL" />
         </section>
 
         {/* Holdings Table */}
         <div className="col-span-8 flex flex-col gap-8">
-           <section className="geometric-card">
-              <div className="flex justify-between items-center mb-8">
-                <div className="flex gap-6">
-                  <button 
-                    onClick={() => setActiveSubTab('holdings')}
-                    className={`label-mono font-black text-xs tracking-widest italic pb-1 border-b-2 transition-all ${activeSubTab === 'holdings' ? 'border-accent text-ink' : 'border-transparent text-muted opacity-40'}`}
-                  >
-                    CASH_HOLDINGS
-                  </button>
-                  <button 
-                    onClick={() => setActiveSubTab('mtf')}
-                    className={`label-mono font-black text-xs tracking-widest italic pb-1 border-b-2 transition-all flex items-center gap-2 ${activeSubTab === 'mtf' ? 'border-accent text-ink' : 'border-transparent text-muted opacity-40'}`}
-                  >
-                    PAY_LATER_MTF <span className="bg-accent/10 px-1 text-[8px] rounded-sm text-accent">LEVERAGE_4X</span>
-                  </button>
-                </div>
-                {activeSubTab === 'holdings' ? (
-                  <button className="label-mono text-[9px] text-muted hover:text-ink transition-colors flex items-center gap-1">
-                     <ArrowRightLeft size={12} /> REBALANCE_ENGINE
-                  </button>
-                ) : (
-                  <button className="label-mono text-[9px] text-accent font-bold hover:text-ink transition-colors flex items-center gap-1">
-                     <Lock size={12} /> PLEDGE_ASSETS
-                  </button>
-                )}
+          <section className="geometric-card">
+            <div className="flex justify-between items-center mb-8">
+              <div className="flex gap-6">
+                <button
+                  onClick={() => setActiveSubTab('holdings')}
+                  className={`label-mono font-black text-xs tracking-widest italic pb-1 border-b-2 transition-all ${activeSubTab === 'holdings' ? 'border-accent text-ink' : 'border-transparent text-muted opacity-40'}`}
+                >
+                  CASH_HOLDINGS
+                </button>
+                <button
+                  onClick={() => setActiveSubTab('mtf')}
+                  className={`label-mono font-black text-xs tracking-widest italic pb-1 border-b-2 transition-all flex items-center gap-2 ${activeSubTab === 'mtf' ? 'border-accent text-ink' : 'border-transparent text-muted opacity-40'}`}
+                >
+                  PAY_LATER_MTF <span className="bg-accent/10 px-1 text-[8px] rounded-sm text-accent">LEVERAGE_4X</span>
+                </button>
               </div>
+              {activeSubTab === 'holdings' ? (
+                <button className="label-mono text-[9px] text-muted hover:text-ink transition-colors flex items-center gap-1">
+                  <ArrowRightLeft size={12} /> REBALANCE_ENGINE
+                </button>
+              ) : (
+                <button className="label-mono text-[9px] text-accent font-bold hover:text-ink transition-colors flex items-center gap-1">
+                  <Lock size={12} /> PLEDGE_ASSETS
+                </button>
+              )}
+            </div>
 
-              <div className="space-y-2">
-                 {activeSubTab === 'holdings' ? (
-                   localHoldings.map((h) => {
-                      const stock = NIFTY_500_STOCKS.find(s => s.symbol === h.symbol)!;
-                      const pnl = (h.currentPrice - h.avgPrice) * h.qty;
-                      return (
-                        <div 
-                          key={h.symbol}
-                          onClick={() => onExpandStock(stock)}
-                          className="group flex items-center justify-between p-4 border border-line hover:border-accent transition-all cursor-crosshair bg-white/50 hover:bg-white hover:shadow-xl"
-                        >
-                           <div className="flex items-center gap-4 flex-1">
-                              <div className="w-1.5 h-8 bg-line group-hover:bg-accent transition-colors" />
-                              <div>
-                                 <div className="text-sm font-bold tracking-tight">{h.symbol}</div>
-                                 <div className="label-mono text-[8px] opacity-40">QTY: {h.qty} • AVG: ₹{h.avgPrice}</div>
-                              </div>
-                           </div>
-                           <div className="w-48 h-10 px-4">
-                              <CandleMini chartData={Array.from({length: 12}, (_, i) => ({ o: 10 + Math.random()*2, c: 10 + Math.random()*2, h: 13, l: 8 }))} live />
-                           </div>
-                           <div className="text-right flex-1">
-                              <div className="text-sm font-mono font-bold">₹{(h.qty * h.currentPrice).toLocaleString(undefined, { maximumFractionDigits: 2 })}</div>
-                              <div className={`text-[9px] font-mono font-bold ${pnl >= 0 ? 'text-green-600' : 'text-red-600'}`}>
-                                 {pnl >= 0 ? '+' : ''}{pnl.toFixed(2)}
-                              </div>
-                           </div>
+            <div className="space-y-2">
+              {activeSubTab === 'holdings' ? (
+                localHoldings.map((h) => {
+                  const stock = NIFTY_500_STOCKS.find(s => s.symbol === h.symbol)!;
+                  const pnl = (h.currentPrice - h.avgPrice) * h.qty;
+                  return (
+                    <div
+                      key={h.symbol}
+                      onClick={() => onExpandStock(stock)}
+                      className="group flex items-center justify-between p-4 border border-line hover:border-accent transition-all cursor-crosshair bg-white/50 hover:bg-white hover:shadow-xl"
+                    >
+                      <div className="flex items-center gap-4 flex-1">
+                        <div className="w-1.5 h-8 bg-line group-hover:bg-accent transition-colors" />
+                        <div>
+                          <div className="text-sm font-bold tracking-tight">{h.symbol}</div>
+                          <div className="label-mono text-[8px] opacity-40">QTY: {h.qty} • AVG: ₹{h.avgPrice}</div>
                         </div>
-                      );
-                   })
-                 ) : (
-                   <MTFPositionsTable onExpandStock={onExpandStock} />
-                 )}
-              </div>
-           </section>
+                      </div>
+                      <div className="w-48 h-10 px-4">
+                        <CandleMini chartData={Array.from({ length: 12 }, (_, i) => ({ o: 10 + Math.random() * 2, c: 10 + Math.random() * 2, h: 13, l: 8 }))} live />
+                      </div>
+                      <div className="text-right flex-1">
+                        <div className="text-sm font-mono font-bold">₹{(h.qty * h.currentPrice).toLocaleString(undefined, { maximumFractionDigits: 2 })}</div>
+                        <div className={`text-[9px] font-mono font-bold ${pnl >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+                          {pnl >= 0 ? '+' : ''}{pnl.toFixed(2)}
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })
+              ) : (
+                <MTFPositionsTable onExpandStock={onExpandStock} />
+              )}
+            </div>
+          </section>
 
-           <section className="geometric-card">
-             <div className="flex justify-between items-center mb-8">
-                <span className="label-mono font-black text-xs tracking-widest italic border-b-2 border-accent">QUANTS_RECOMMENDATIONS</span>
-             </div>
-             <div className="grid grid-cols-2 gap-6">
-                {NIFTY_500_STOCKS.slice(4, 8).map(stock => (
-                  <div key={stock.symbol} className="p-5 border border-line flex items-center justify-between group hover:border-ink transition-all">
-                    <div>
-                      <div className="text-sm font-bold">{stock.symbol}</div>
-                      <div className="label-mono text-[8px] text-muted">BETA: {stock.marketBeta} | RSI: {stock.rsiMonthly}</div>
-                    </div>
-                    <div className="flex flex-col items-end">
-                      <RecommendationBadge signal={stock.signal} />
-                      <button 
-                        onClick={(e) => { e.stopPropagation(); toggleWatchlist(stock.symbol); }}
-                        className={`mt-2 ${watchlist.includes(stock.symbol) ? 'text-accent' : 'text-muted/40 hover:text-accent'}`}
-                      >
-                        <Star size={14} fill={watchlist.includes(stock.symbol) ? "currentColor" : "none"} />
-                      </button>
-                    </div>
+          <section className="geometric-card">
+            <div className="flex justify-between items-center mb-8">
+              <span className="label-mono font-black text-xs tracking-widest italic border-b-2 border-accent">QUANTS_RECOMMENDATIONS</span>
+            </div>
+            <div className="grid grid-cols-2 gap-6">
+              {NIFTY_500_STOCKS.slice(4, 8).map(stock => (
+                <div key={stock.symbol} className="p-5 border border-line flex items-center justify-between group hover:border-ink transition-all">
+                  <div>
+                    <div className="text-sm font-bold">{stock.symbol}</div>
+                    <div className="label-mono text-[8px] text-muted">BETA: {stock.marketBeta} | RSI: {stock.rsiMonthly}</div>
                   </div>
-                ))}
-             </div>
-           </section>
+                  <div className="flex flex-col items-end">
+                    <RecommendationBadge signal={stock.signal} />
+                    <button
+                      onClick={(e) => { e.stopPropagation(); toggleWatchlist(stock.symbol); }}
+                      className={`mt-2 ${watchlist.includes(stock.symbol) ? 'text-accent' : 'text-muted/40 hover:text-accent'}`}
+                    >
+                      <Star size={14} fill={watchlist.includes(stock.symbol) ? "currentColor" : "none"} />
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
         </div>
 
         {/* Watchlist & Risk */}
         <div className="col-span-4 flex flex-col gap-8">
-           <section className="geometric-card bg-ink text-white">
-             <div className="flex justify-between items-baseline mb-8">
-                <span className="label-mono text-white/50 italic font-black text-xs">WATCHLIST_V3</span>
-                <LayoutGrid size={12} className="opacity-40" />
-             </div>
-             <div className="space-y-4">
-                {watchlist.map(sym => {
-                  const stock = NIFTY_500_STOCKS.find(s => s.symbol === sym)!;
-                  return (
-                    <div 
-                      key={sym}
-                      onClick={() => onExpandStock(stock)}
-                      className="flex items-center justify-between p-3 border border-white/5 hover:border-white/20 hover:bg-white/5 cursor-pointer transition-all"
-                    >
-                      <span className="font-mono text-xs">{sym}</span>
-                      <div className="flex items-center gap-3">
-                        <span className="font-mono text-[10px] text-white/60">₹{stock.price}</span>
-                        <div className={`w-1 h-1 rounded-full ${stock.signal === 'BUY' ? 'bg-green-400 animate-pulse' : 'bg-red-400'}`} />
-                      </div>
+          <section className="geometric-card bg-ink text-white">
+            <div className="flex justify-between items-baseline mb-8">
+              <span className="label-mono text-white/50 italic font-black text-xs">WATCHLIST_V3</span>
+              <LayoutGrid size={12} className="opacity-40" />
+            </div>
+            <div className="space-y-4">
+              {watchlist.map(sym => {
+                const stock = NIFTY_500_STOCKS.find(s => s.symbol === sym)!;
+                return (
+                  <div
+                    key={sym}
+                    onClick={() => onExpandStock(stock)}
+                    className="flex items-center justify-between p-3 border border-white/5 hover:border-white/20 hover:bg-white/5 cursor-pointer transition-all"
+                  >
+                    <span className="font-mono text-xs">{sym}</span>
+                    <div className="flex items-center gap-3">
+                      <span className="font-mono text-[10px] text-white/60">₹{stock.price}</span>
+                      <div className={`w-1 h-1 rounded-full ${stock.signal === 'BUY' ? 'bg-green-400 animate-pulse' : 'bg-red-400'}`} />
                     </div>
-                  );
-                })}
-             </div>
-           </section>
+                  </div>
+                );
+              })}
+            </div>
+          </section>
 
-           <section className="geometric-card">
-              <span className="label-mono block mb-6 text-xs italic font-black border-b-2 border-accent w-fit">RISK_ALLOCATION</span>
-              <div className="space-y-6">
-                 <RiskProgress label="Systemic Variance" value={42} />
-                 <RiskProgress label="Concentration Risk" value={68} status="CRITICAL" />
-                 <RiskProgress label="Liquidity Buffer" value={85} />
-              </div>
-           </section>
+          <section className="geometric-card">
+            <span className="label-mono block mb-6 text-xs italic font-black border-b-2 border-accent w-fit">RISK_ALLOCATION</span>
+            <div className="space-y-6">
+              <RiskProgress label="Systemic Variance" value={42} />
+              <RiskProgress label="Concentration Risk" value={68} status="CRITICAL" />
+              <RiskProgress label="Liquidity Buffer" value={85} />
+            </div>
+          </section>
 
-           <section className="geometric-card bg-accent/5 border-dashed border-accent">
-              <span className="label-mono block mb-4 text-[9px] text-accent font-black tracking-widest">SMART_REBALANCE_ADVISORY</span>
-              <div className="space-y-4">
-                 <RebalanceItem symbol="HDFCBANK" action="BUY" weight="+4.2%" />
-                 <RebalanceItem symbol="INFY" action="SELL" weight="-2.1%" />
-                 <p className="text-[8px] text-muted font-mono mt-4 leading-tight italic">
-                   System detects high correlation in current IT holdings. Reducing INFY to normalize sector weight.
-                 </p>
-              </div>
-           </section>
+          <section className="geometric-card bg-accent/5 border-dashed border-accent">
+            <span className="label-mono block mb-4 text-[9px] text-accent font-black tracking-widest">SMART_REBALANCE_ADVISORY</span>
+            <div className="space-y-4">
+              <RebalanceItem symbol="HDFCBANK" action="BUY" weight="+4.2%" />
+              <RebalanceItem symbol="INFY" action="SELL" weight="-2.1%" />
+              <p className="text-[8px] text-muted font-mono mt-4 leading-tight italic">
+                System detects high correlation in current IT holdings. Reducing INFY to normalize sector weight.
+              </p>
+            </div>
+          </section>
         </div>
       </div>
     </div>
@@ -1977,28 +1974,28 @@ const RebalanceItem = ({ symbol, action, weight }: any) => (
 
 const ExposureCard = ({ title, value, weight, color, label = "Allocation" }: any) => (
   <div className="p-8 group hover:bg-bg/40 transition-colors cursor-default">
-     <div className="flex justify-between items-start mb-4">
-        <div>
-           <div className="label-mono text-[9px] opacity-40 uppercase mb-1">{title}</div>
-           <div className="text-2xl font-mono font-bold tracking-tighter">{value}</div>
-        </div>
-        <div className="p-2 border border-line bg-white group-hover:border-ink transition-all">
-           <PieChart size={14} className="text-muted" />
-        </div>
-     </div>
-     <div className="h-1 bg-line relative rounded-full overflow-hidden">
-        <motion.div 
-          initial={{ width: 0 }}
-          animate={{ width: `${weight}%` }}
-          transition={{ duration: 1.5, ease: "circOut" }}
-          className="absolute inset-y-0 left-0" 
-          style={{ backgroundColor: color }} 
-        />
-     </div>
-     <div className="flex justify-between mt-2 font-mono text-[8px] text-muted font-bold tracking-widest uppercase">
-        <span>{label}</span>
-        <span>{weight}%</span>
-     </div>
+    <div className="flex justify-between items-start mb-4">
+      <div>
+        <div className="label-mono text-[9px] opacity-40 uppercase mb-1">{title}</div>
+        <div className="text-2xl font-mono font-bold tracking-tighter">{value}</div>
+      </div>
+      <div className="p-2 border border-line bg-white group-hover:border-ink transition-all">
+        <PieChart size={14} className="text-muted" />
+      </div>
+    </div>
+    <div className="h-1 bg-line relative rounded-full overflow-hidden">
+      <motion.div
+        initial={{ width: 0 }}
+        animate={{ width: `${weight}%` }}
+        transition={{ duration: 1.5, ease: "circOut" }}
+        className="absolute inset-y-0 left-0"
+        style={{ backgroundColor: color }}
+      />
+    </div>
+    <div className="flex justify-between mt-2 font-mono text-[8px] text-muted font-bold tracking-widest uppercase">
+      <span>{label}</span>
+      <span>{weight}%</span>
+    </div>
   </div>
 );
 
@@ -2028,14 +2025,14 @@ const MTFPositionsTable = ({ onExpandStock }: { onExpandStock: (s: Nifty500Stock
         {mtfPositions.map(pos => {
           const stock = NIFTY_500_STOCKS.find(s => s.symbol === pos.symbol)!;
           return (
-            <div 
+            <div
               key={pos.symbol}
               onClick={() => onExpandStock(stock)}
               className="grid grid-cols-12 p-4 border border-line hover:border-accent transition-all cursor-crosshair bg-white group"
             >
               <div className="col-span-3 flex items-center gap-3">
-                 <div className="w-1 h-6 bg-accent opacity-20 group-hover:opacity-100 transition-opacity" />
-                 <div className="text-xs font-bold">{pos.symbol}</div>
+                <div className="w-1 h-6 bg-accent opacity-20 group-hover:opacity-100 transition-opacity" />
+                <div className="text-xs font-bold">{pos.symbol}</div>
               </div>
               <div className="col-span-2 text-right text-xs font-mono">₹{pos.marketValue.toLocaleString()}</div>
               <div className="col-span-2 text-right text-xs font-mono text-muted">₹{pos.marginPaid.toLocaleString()}</div>
@@ -2048,10 +2045,10 @@ const MTFPositionsTable = ({ onExpandStock }: { onExpandStock: (s: Nifty500Stock
         })}
         <div className="geometric-card bg-accent/5 p-4 border-dashed border-accent flex justify-between items-center transition-all hover:bg-accent/10">
           <div>
-             <div className="label-mono text-[9px] text-accent mb-1 font-black">MARGIN_AVAILABILITY_UPLINK</div>
-             <div className="text-[10px] text-muted max-w-sm italic">You can use your ₹4.5M limit to buy 4x more stocks. Pay only 25% upfront.</div>
+            <div className="label-mono text-[9px] text-accent mb-1 font-black">MARGIN_AVAILABILITY_UPLINK</div>
+            <div className="text-[10px] text-muted max-w-sm italic">You can use your ₹4.5M limit to buy 4x more stocks. Pay only 25% upfront.</div>
           </div>
-          <button 
+          <button
             onClick={() => setShowMarginWorkflow(true)}
             className="btn-geometric px-6 bg-accent text-white border-accent hover:bg-ink flex items-center gap-2 group"
           >
@@ -2083,20 +2080,20 @@ const MarginAcquisitionModal = ({ onClose }: { onClose: () => void }) => {
   };
 
   return (
-    <motion.div 
+    <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       className="fixed inset-0 z-[100] flex items-center justify-center p-8 backdrop-blur-md bg-white/20"
     >
-      <motion.div 
+      <motion.div
         initial={{ scale: 0.9, y: 20 }}
         animate={{ scale: 1, y: 0 }}
         className="w-full max-w-2xl bg-white border border-ink shadow-[20px_20px_0px_0px_rgba(0,0,0,1)] p-12 relative overflow-hidden"
       >
         {/* Background Grids */}
         <div className="absolute inset-0 opacity-[0.02] pointer-events-none">
-           <div className="h-full w-full bg-[radial-gradient(#000_1px,transparent_1px)] [background-size:20px_20px]" />
+          <div className="h-full w-full bg-[radial-gradient(#000_1px,transparent_1px)] [background-size:20px_20px]" />
         </div>
 
         <button onClick={onClose} className="absolute top-8 right-8 text-muted hover:text-ink transition-colors">
@@ -2110,8 +2107,8 @@ const MarginAcquisitionModal = ({ onClose }: { onClose: () => void }) => {
               <h2 className="text-4xl font-light tracking-tighter">Acquire Additional Funding</h2>
             </div>
             <div className="text-right">
-               <div className="label-mono text-[9px] opacity-40 mb-1 tracking-widest">STATUS_UPLINK</div>
-               <div className="text-xs font-mono font-bold">{isProcessing ? 'CALIBRATING...' : 'READY_FOR_SYNC'}</div>
+              <div className="label-mono text-[9px] opacity-40 mb-1 tracking-widest">STATUS_UPLINK</div>
+              <div className="text-xs font-mono font-bold">{isProcessing ? 'CALIBRATING...' : 'READY_FOR_SYNC'}</div>
             </div>
           </div>
 
@@ -2152,7 +2149,7 @@ const MarginAcquisitionModal = ({ onClose }: { onClose: () => void }) => {
             )}
           </div>
 
-          <button 
+          <button
             disabled={isProcessing}
             onClick={handleNext}
             className="btn-geometric w-full py-5 bg-ink text-white hover:bg-accent hover:border-accent disabled:opacity-50 disabled:cursor-wait relative group"
@@ -2193,7 +2190,7 @@ const IndicatorToggle = ({ label, active }: any) => (
 const IntelligenceMetric = ({ label, value, status, trend }: any) => (
   <div className="geometric-card p-6 border-line/40 bg-white/40 backdrop-blur-sm relative overflow-hidden group hover:border-ink transition-all border-dashed">
     <div className="absolute top-0 right-0 p-2 opacity-[0.03] group-hover:opacity-[0.08] transition-opacity translate-x-2 -translate-y-2 scale-150">
-       {trend === 'up' ? <ArrowUpRight size={80} /> : trend === 'down' ? <ArrowDownRight size={80} /> : <Activity size={80} />}
+      {trend === 'up' ? <ArrowUpRight size={80} /> : trend === 'down' ? <ArrowDownRight size={80} /> : <Activity size={80} />}
     </div>
     <div className="label-mono text-[9px] mb-4 text-muted tracking-[0.2em] font-bold uppercase">{label}</div>
     <div className="text-4xl font-light tracking-tighter mb-2 font-mono flex items-baseline gap-1">
@@ -2201,10 +2198,10 @@ const IntelligenceMetric = ({ label, value, status, trend }: any) => (
       <span className="text-[10px] opacity-40 font-normal">v.1.2</span>
     </div>
     <div className="flex items-center gap-2">
-       <div className={`w-1.5 h-1.5 rounded-full ${trend === 'up' ? 'bg-green-500' : trend === 'down' ? 'bg-red-500' : 'bg-blue-500'} animate-pulse`} />
-       <span className={`label-mono text-[8px] font-black uppercase tracking-widest ${trend === 'up' ? 'text-green-600' : trend === 'down' ? 'text-red-600' : 'text-blue-600'}`}>
-         {status}
-       </span>
+      <div className={`w-1.5 h-1.5 rounded-full ${trend === 'up' ? 'bg-green-500' : trend === 'down' ? 'bg-red-500' : 'bg-blue-500'} animate-pulse`} />
+      <span className={`label-mono text-[8px] font-black uppercase tracking-widest ${trend === 'up' ? 'text-green-600' : trend === 'down' ? 'text-red-600' : 'text-blue-600'}`}>
+        {status}
+      </span>
     </div>
   </div>
 );
@@ -2234,8 +2231,8 @@ const CandleMini = ({ chartData, live }: { chartData: any[], live?: boolean }) =
       {data.map((d, i) => (
         <div key={i} className="flex-1 flex flex-col items-center">
           <div className="w-[1px] h-2 bg-line/30" />
-          <div className={`w-1.5 rounded-sm transition-all duration-500 ${d.c > d.o ? 'bg-green-500/30 border border-green-500' : 'bg-red-500/30 border border-red-500'}`} 
-               style={{ height: `${Math.max(4, Math.abs(d.c - d.o) * 5)}px` }} />
+          <div className={`w-1.5 rounded-sm transition-all duration-500 ${d.c > d.o ? 'bg-green-500/30 border border-green-500' : 'bg-red-500/30 border border-red-500'}`}
+            style={{ height: `${Math.max(4, Math.abs(d.c - d.o) * 5)}px` }} />
           <div className="w-[1px] h-2 bg-line/30" />
         </div>
       ))}
@@ -2263,10 +2260,10 @@ const RiskProgress = ({ label, value, status }: any) => (
       <span className={`font-mono font-bold ${status === 'CRITICAL' ? 'text-red-600' : 'text-accent'}`}>{value}% {status && <span className="ml-1 text-[8px] animate-pulse">[{status}]</span>}</span>
     </div>
     <div className="h-1 bg-line overflow-hidden">
-      <motion.div 
+      <motion.div
         initial={{ width: 0 }}
         animate={{ width: `${value}%` }}
-        className={`h-full ${value > 60 ? 'bg-red-500' : 'bg-accent'}`} 
+        className={`h-full ${value > 60 ? 'bg-red-500' : 'bg-accent'}`}
       />
     </div>
   </div>
@@ -2283,7 +2280,7 @@ const ExpandedChart = ({ stock, onClose }: { stock: Nifty500Stock, onClose: () =
       const h = Math.max(o, c) + Math.random() * (volatilityBase * 0.2);
       const l = Math.min(o, c) - Math.random() * (volatilityBase * 0.2);
       lastC = c;
-      return { name: `T-${60-i}`, o, c, h, l };
+      return { name: `T-${60 - i}`, o, c, h, l };
     });
   };
 
@@ -2307,113 +2304,113 @@ const ExpandedChart = ({ stock, onClose }: { stock: Nifty500Stock, onClose: () =
   }, [stock.marketBeta]);
 
   return (
-    <motion.div 
+    <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-10 lg:p-20 bg-ink/60 backdrop-blur-2xl"
       onClick={onClose}
     >
-       <motion.div 
-         initial={{ scale: 0.95, y: 30, opacity: 0 }}
-         animate={{ scale: 1, y: 0, opacity: 1 }}
-         exit={{ scale: 0.95, y: 30, opacity: 0 }}
-         onClick={(e) => e.stopPropagation()}
-         className="w-full max-w-7xl h-full bg-white border border-white/20 shadow-[-50px_50px_100px_rgba(0,0,0,0.5)] relative flex flex-col p-10 overflow-hidden rounded-sm"
-       >
-          <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-accent/5 rounded-full translate-x-1/4 -translate-y-1/4 blur-[120px] pointer-events-none" />
-          
-          <div className="flex justify-between items-start mb-10 z-10">
-             <div className="animate-in slide-in-from-left duration-700">
-                <div className="flex items-center gap-4">
-                   <h2 className="text-6xl font-black italic tracking-tighter text-ink uppercase leading-none">{stock.symbol}</h2>
-                   <div className="flex flex-col">
-                     <span className="px-2 py-0.5 bg-accent text-white font-mono text-[9px] font-black tracking-widest uppercase">LIVE_DATA_FEED</span>
-                     <span className="text-[8px] font-mono text-muted mt-1 tracking-tighter">SECURE_CHANNEL://VORTEX_CORE_{stock.symbol}</span>
-                   </div>
-                </div>
-                <p className="text-muted tracking-[0.3em] uppercase font-mono text-[11px] mt-4 font-bold opacity-60">{stock.name} • NATIONAL STOCK EXCHANGE</p>
-             </div>
-             <div className="flex items-center gap-10 animate-in slide-in-from-right duration-700">
-                <div className="text-right">
-                   <div className="label-mono text-muted text-[10px] mb-1 tracking-widest">REALTIME_QUOTE</div>
-                   <div className="text-5xl font-mono font-bold tracking-tighter text-ink transition-all duration-500">
-                     ₹{livePrice.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-                   </div>
-                </div>
-                <button 
-                   onClick={onClose}
-                   className="w-14 h-14 flex items-center justify-center border border-line hover:bg-ink hover:text-white transition-all duration-500 rounded-full group bg-white shadow-lg"
-                >
-                   <X size={24} className="group-hover:rotate-180 transition-transform duration-500" />
-                </button>
-             </div>
+      <motion.div
+        initial={{ scale: 0.95, y: 30, opacity: 0 }}
+        animate={{ scale: 1, y: 0, opacity: 1 }}
+        exit={{ scale: 0.95, y: 30, opacity: 0 }}
+        onClick={(e) => e.stopPropagation()}
+        className="w-full max-w-7xl h-full bg-white border border-white/20 shadow-[-50px_50px_100px_rgba(0,0,0,0.5)] relative flex flex-col p-10 overflow-hidden rounded-sm"
+      >
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-accent/5 rounded-full translate-x-1/4 -translate-y-1/4 blur-[120px] pointer-events-none" />
+
+        <div className="flex justify-between items-start mb-10 z-10">
+          <div className="animate-in slide-in-from-left duration-700">
+            <div className="flex items-center gap-4">
+              <h2 className="text-6xl font-black italic tracking-tighter text-ink uppercase leading-none">{stock.symbol}</h2>
+              <div className="flex flex-col">
+                <span className="px-2 py-0.5 bg-accent text-white font-mono text-[9px] font-black tracking-widest uppercase">LIVE_DATA_FEED</span>
+                <span className="text-[8px] font-mono text-muted mt-1 tracking-tighter">SECURE_CHANNEL://VORTEX_CORE_{stock.symbol}</span>
+              </div>
+            </div>
+            <p className="text-muted tracking-[0.3em] uppercase font-mono text-[11px] mt-4 font-bold opacity-60">{stock.name} • NATIONAL STOCK EXCHANGE</p>
+          </div>
+          <div className="flex items-center gap-10 animate-in slide-in-from-right duration-700">
+            <div className="text-right">
+              <div className="label-mono text-muted text-[10px] mb-1 tracking-widest">REALTIME_QUOTE</div>
+              <div className="text-5xl font-mono font-bold tracking-tighter text-ink transition-all duration-500">
+                ₹{livePrice.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+              </div>
+            </div>
+            <button
+              onClick={onClose}
+              className="w-14 h-14 flex items-center justify-center border border-line hover:bg-ink hover:text-white transition-all duration-500 rounded-full group bg-white shadow-lg"
+            >
+              <X size={24} className="group-hover:rotate-180 transition-transform duration-500" />
+            </button>
+          </div>
+        </div>
+
+        <div className="flex-1 min-h-0 z-10 relative">
+          <div className="absolute top-4 right-4 z-20 flex gap-2">
+            <IndicatorToggle label="VOL" active />
+            <IndicatorToggle label="RSI" />
+            <IndicatorToggle label="MACD" />
+            <IndicatorToggle label="EMA_20" active />
           </div>
 
-          <div className="flex-1 min-h-0 z-10 relative">
-             <div className="absolute top-4 right-4 z-20 flex gap-2">
-                <IndicatorToggle label="VOL" active />
-                <IndicatorToggle label="RSI" />
-                <IndicatorToggle label="MACD" />
-                <IndicatorToggle label="EMA_20" active />
-             </div>
-             
-             <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={candleData} barGap={0}>
-                  <CartesianGrid strokeDasharray="1 1" vertical={false} stroke="#f1f1f1" />
-                  <XAxis dataKey="name" hide />
-                  <YAxis domain={['auto', 'auto']} hide />
-                  <RechartsTooltip 
-                    content={({ payload }) => {
-                      if (!payload || !payload[0]) return null;
-                      const d = payload[0].payload;
-                      return (
-                        <div className="bg-ink p-4 text-[10px] font-mono text-white border border-white/10 shadow-2xl skew-x-[-2deg]">
-                          <div className="mb-2 text-accent italic font-black">OHLC_REPORT</div>
-                          <div className="space-y-1">
-                            <div className="flex justify-between gap-6"><span>OPEN:</span> <span>{d.o.toFixed(2)}</span></div>
-                            <div className="flex justify-between gap-6"><span>HIGH:</span> <span>{d.h.toFixed(2)}</span></div>
-                            <div className="flex justify-between gap-6"><span>LOW:</span> <span>{d.l.toFixed(2)}</span></div>
-                            <div className="flex justify-between gap-6"><span>CLOSE:</span> <span className={d.c > d.o ? 'text-green-400' : 'text-red-400'}>{d.c.toFixed(2)}</span></div>
-                          </div>
-                        </div>
-                      );
-                    }}
-                  />
-                  <Bar 
-                    dataKey="c" 
-                    fill="none"
-                    shape={(props: any) => {
-                      const { x, y, width, height, payload } = props;
-                      const isUp = payload.c >= payload.o;
-                      const bodyWidth = 12;
-                      const centerX = x + width / 2;
-                      const openY = y + (payload.c >= payload.o ? height : 0);
-                      const closeY = y + (payload.c >= payload.o ? 0 : height);
-                      const bodyHeight = Math.max(2, Math.abs(openY - closeY));
-                      
-                      return (
-                        <g>
-                          {/* Wick calculation based on actual H/L data rather than fixed offsets */}
-                          <line x1={centerX} y1={y + (payload.c >= payload.o ? height : 0) - (payload.h - Math.max(payload.o, payload.c)) * 2} 
-                                x2={centerX} y2={y + (payload.c >= payload.o ? 0 : height) + (Math.min(payload.o, payload.c) - payload.l) * 2} 
-                                stroke={isUp ? '#16a34a' : '#dc2626'} strokeWidth={1} />
-                          <rect x={centerX - bodyWidth/2} y={Math.min(openY, closeY)} width={bodyWidth} height={bodyHeight} fill={isUp ? '#16a34a' : '#dc2626'} />
-                        </g>
-                      );
-                    }}
-                  />
-                </BarChart>
-             </ResponsiveContainer>
-          </div>
+          <ResponsiveContainer width="100%" height="100%">
+            <BarChart data={candleData} barGap={0}>
+              <CartesianGrid strokeDasharray="1 1" vertical={false} stroke="#f1f1f1" />
+              <XAxis dataKey="name" hide />
+              <YAxis domain={['auto', 'auto']} hide />
+              <RechartsTooltip
+                content={({ payload }) => {
+                  if (!payload || !payload[0]) return null;
+                  const d = payload[0].payload;
+                  return (
+                    <div className="bg-ink p-4 text-[10px] font-mono text-white border border-white/10 shadow-2xl skew-x-[-2deg]">
+                      <div className="mb-2 text-accent italic font-black">OHLC_REPORT</div>
+                      <div className="space-y-1">
+                        <div className="flex justify-between gap-6"><span>OPEN:</span> <span>{d.o.toFixed(2)}</span></div>
+                        <div className="flex justify-between gap-6"><span>HIGH:</span> <span>{d.h.toFixed(2)}</span></div>
+                        <div className="flex justify-between gap-6"><span>LOW:</span> <span>{d.l.toFixed(2)}</span></div>
+                        <div className="flex justify-between gap-6"><span>CLOSE:</span> <span className={d.c > d.o ? 'text-green-400' : 'text-red-400'}>{d.c.toFixed(2)}</span></div>
+                      </div>
+                    </div>
+                  );
+                }}
+              />
+              <Bar
+                dataKey="c"
+                fill="none"
+                shape={(props: any) => {
+                  const { x, y, width, height, payload } = props;
+                  const isUp = payload.c >= payload.o;
+                  const bodyWidth = 12;
+                  const centerX = x + width / 2;
+                  const openY = y + (payload.c >= payload.o ? height : 0);
+                  const closeY = y + (payload.c >= payload.o ? 0 : height);
+                  const bodyHeight = Math.max(2, Math.abs(openY - closeY));
 
-          <div className="mt-10 grid grid-cols-4 gap-4 border-t border-line pt-10">
-             <QuantMetric label="MOMENTUM_12M" value={stock.momentum} />
-             <QuantMetric label="VALUATION_SCORE" value={stock.valuation} />
-             <QuantMetric label="QUALITY_INDEX" value={stock.quality} />
-             <QuantMetric label="COMPOSITE_V_SIGNAL" value={stock.compositeScore} />
-          </div>
-       </motion.div>
+                  return (
+                    <g>
+                      {/* Wick calculation based on actual H/L data rather than fixed offsets */}
+                      <line x1={centerX} y1={y + (payload.c >= payload.o ? height : 0) - (payload.h - Math.max(payload.o, payload.c)) * 2}
+                        x2={centerX} y2={y + (payload.c >= payload.o ? 0 : height) + (Math.min(payload.o, payload.c) - payload.l) * 2}
+                        stroke={isUp ? '#16a34a' : '#dc2626'} strokeWidth={1} />
+                      <rect x={centerX - bodyWidth / 2} y={Math.min(openY, closeY)} width={bodyWidth} height={bodyHeight} fill={isUp ? '#16a34a' : '#dc2626'} />
+                    </g>
+                  );
+                }}
+              />
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
+
+        <div className="mt-10 grid grid-cols-4 gap-4 border-t border-line pt-10">
+          <QuantMetric label="MOMENTUM_12M" value={stock.momentum} />
+          <QuantMetric label="VALUATION_SCORE" value={stock.valuation} />
+          <QuantMetric label="QUALITY_INDEX" value={stock.quality} />
+          <QuantMetric label="COMPOSITE_V_SIGNAL" value={stock.compositeScore} />
+        </div>
+      </motion.div>
     </motion.div>
   );
 };
@@ -2481,62 +2478,62 @@ const VortexAICopilot = () => {
     <div className="fixed bottom-10 right-10 z-[200]">
       <AnimatePresence>
         {isOpen && (
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 20, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             className="absolute bottom-20 right-0 w-96 h-[500px] bg-ink text-white border border-white/10 shadow-3xl flex flex-col overflow-hidden"
           >
             <div className="p-6 border-b border-white/10 flex justify-between items-center bg-accent/10">
-               <div className="flex items-center gap-3">
-                  <div className="w-2 h-2 rounded-full bg-accent animate-pulse" />
-                  <span className="label-mono italic font-black text-xs tracking-widest text-accent uppercase">VORTEX_COPILOT_v2.0</span>
-               </div>
-               <button onClick={() => setIsOpen(false)} className="text-white/40 hover:text-white transition-colors">
-                  <X size={16} />
-               </button>
+              <div className="flex items-center gap-3">
+                <div className="w-2 h-2 rounded-full bg-accent animate-pulse" />
+                <span className="label-mono italic font-black text-xs tracking-widest text-accent uppercase">VORTEX_COPILOT_v2.0</span>
+              </div>
+              <button onClick={() => setIsOpen(false)} className="text-white/40 hover:text-white transition-colors">
+                <X size={16} />
+              </button>
             </div>
 
             <div className="flex-1 overflow-y-auto p-6 space-y-6 flex flex-col no-scrollbar">
-               {messages.length === 0 && (
-                 <div className="text-[11px] font-mono opacity-50 italic leading-loose text-center mt-20 px-10">
-                    Welcome to the Intelligence Terminal. Ask me about margin pressures, expansion plans, or current market mood.
-                 </div>
-               )}
-               {messages.map((m, i) => (
-                 <div key={i} className={`flex flex-col ${m.role === 'user' ? 'items-end' : 'items-start'}`}>
-                    <div className={`p-4 text-[11px] font-mono leading-relaxed max-w-[85%] ${m.role === 'user' ? 'bg-accent text-white italic' : 'bg-white/5 border border-white/10 text-white/90'}`}>
-                       {m.content}
-                    </div>
-                    <span className="text-[7px] font-mono opacity-30 mt-2 uppercase tracking-widest">{m.role === 'user' ? 'OPERATOR' : 'VORTEX_CORES'}</span>
-                 </div>
-               ))}
-               {isTyping && (
-                 <div className="flex items-center gap-2 text-accent label-mono text-[8px] animate-pulse">
-                    SYNTHESIZING_RESPONSE...
-                 </div>
-               )}
+              {messages.length === 0 && (
+                <div className="text-[11px] font-mono opacity-50 italic leading-loose text-center mt-20 px-10">
+                  Welcome to the Intelligence Terminal. Ask me about margin pressures, expansion plans, or current market mood.
+                </div>
+              )}
+              {messages.map((m, i) => (
+                <div key={i} className={`flex flex-col ${m.role === 'user' ? 'items-end' : 'items-start'}`}>
+                  <div className={`p-4 text-[11px] font-mono leading-relaxed max-w-[85%] ${m.role === 'user' ? 'bg-accent text-white italic' : 'bg-white/5 border border-white/10 text-white/90'}`}>
+                    {m.content}
+                  </div>
+                  <span className="text-[7px] font-mono opacity-30 mt-2 uppercase tracking-widest">{m.role === 'user' ? 'OPERATOR' : 'VORTEX_CORES'}</span>
+                </div>
+              ))}
+              {isTyping && (
+                <div className="flex items-center gap-2 text-accent label-mono text-[8px] animate-pulse">
+                  SYNTHESIZING_RESPONSE...
+                </div>
+              )}
             </div>
 
             <div className="p-4 border-t border-white/10 bg-black/40">
-               <form onSubmit={askAI} className="flex gap-2">
-                  <input 
-                    type="text" 
-                    value={query}
-                    onChange={(e) => setQuery(e.target.value)}
-                    placeholder="QUERY_MARKET..."
-                    className="flex-1 bg-transparent border border-white/10 p-3 text-xs font-mono text-white focus:outline-none focus:border-accent transition-all placeholder:text-white/20"
-                  />
-                  <button type="submit" className="p-3 bg-accent border border-accent hover:bg-white hover:text-ink transition-all">
-                    <ArrowUpRight size={16} />
-                  </button>
-               </form>
+              <form onSubmit={askAI} className="flex gap-2">
+                <input
+                  type="text"
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
+                  placeholder="QUERY_MARKET..."
+                  className="flex-1 bg-transparent border border-white/10 p-3 text-xs font-mono text-white focus:outline-none focus:border-accent transition-all placeholder:text-white/20"
+                />
+                <button type="submit" className="p-3 bg-accent border border-accent hover:bg-white hover:text-ink transition-all">
+                  <ArrowUpRight size={16} />
+                </button>
+              </form>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
 
-      <button 
+      <button
         onClick={() => setIsOpen(!isOpen)}
         className={`w-16 h-16 rounded-none flex items-center justify-center transition-all ${isOpen ? 'bg-white text-ink rotate-45' : 'bg-accent text-white hover:shadow-2xl hover:-translate-y-1'}`}
       >
@@ -2576,15 +2573,15 @@ const SHAPValuesPlot = ({ selectedModel, shapData, isRunning }: { selectedModel:
           >
             <CartesianGrid strokeDasharray="1 1" horizontal={true} vertical={false} stroke="#E5E7EB" />
             <XAxis type="number" hide />
-            <YAxis 
-              dataKey="feature" 
-              type="category" 
-              axisLine={false} 
-              tickLine={false} 
+            <YAxis
+              dataKey="feature"
+              type="category"
+              axisLine={false}
+              tickLine={false}
               tick={{ fontSize: 10, fill: '#121212', fontWeight: 500 }}
               width={120}
             />
-            <RechartsTooltip 
+            <RechartsTooltip
               cursor={{ fill: '#F1F1EF' }}
               content={({ active, payload }) => {
                 if (active && payload && payload.length) {
@@ -2600,15 +2597,15 @@ const SHAPValuesPlot = ({ selectedModel, shapData, isRunning }: { selectedModel:
                 return null;
               }}
             />
-            <Bar 
-              dataKey="impact" 
-              radius={[0, 2, 2, 0]} 
+            <Bar
+              dataKey="impact"
+              radius={[0, 2, 2, 0]}
               barSize={20}
             >
               {shapData.map((entry, index) => (
-                <Bar 
-                  key={`cell-${index}`} 
-                  fill={entry.impact > 0 ? '#0047FF' : '#F87171'} 
+                <Bar
+                  key={`cell-${index}`}
+                  fill={entry.impact > 0 ? '#0047FF' : '#F87171'}
                 />
               ))}
             </Bar>
@@ -2641,22 +2638,22 @@ const BacktestingModule = () => {
             <div className="w-1 h-3 bg-accent" />
             <span className="label-mono tracking-[0.2em] text-accent uppercase font-black text-xs">Backtest Config</span>
           </div>
-          
+
           <div className="space-y-6">
             <div>
               <label className="label-mono block mb-2 opacity-60">TEST PERIOD (DAYS)</label>
-              <input 
-                type="number" 
+              <input
+                type="number"
                 value={params.lookback}
-                onChange={(e) => setParams({...params, lookback: parseInt(e.target.value)})}
+                onChange={(e) => setParams({ ...params, lookback: parseInt(e.target.value) })}
                 className="w-full bg-transparent border-b border-line py-2 font-mono text-sm focus:border-accent outline-none"
               />
             </div>
             <div>
               <label className="label-mono block mb-2 opacity-60">REBALANCE FREQUENCY</label>
-              <select 
+              <select
                 value={params.rebalance}
-                onChange={(e) => setParams({...params, rebalance: e.target.value})}
+                onChange={(e) => setParams({ ...params, rebalance: e.target.value })}
                 className="w-full bg-transparent border-b border-line py-2 font-mono text-sm focus:border-accent outline-none"
               >
                 <option>Weekly</option>
@@ -2666,14 +2663,14 @@ const BacktestingModule = () => {
             </div>
             <div className="flex items-center justify-between py-2">
               <span className="label-mono opacity-60">VOLATILITY TARGETING</span>
-              <button 
-                onClick={() => setParams({...params, riskToggle: !params.riskToggle})}
+              <button
+                onClick={() => setParams({ ...params, riskToggle: !params.riskToggle })}
                 className={`w-10 h-5 rounded-full transition-colors relative ${params.riskToggle ? 'bg-accent' : 'bg-line'}`}
               >
                 <div className={`absolute top-1 w-3 h-3 bg-white rounded-full transition-all ${params.riskToggle ? 'left-6' : 'left-1'}`} />
               </button>
             </div>
-            
+
             <button className="btn-geometric w-full bg-ink text-white hover:bg-accent transition-all py-3 flex items-center justify-center gap-2 group">
               <Activity size={16} className="group-hover:animate-pulse" />
               RUN SIMULATION
@@ -2715,13 +2712,13 @@ const BacktestingModule = () => {
             <LineChart data={backtestData}>
               <CartesianGrid strokeDasharray="1 1" vertical={false} stroke="#E5E7EB" />
               <XAxis dataKey="time" hide />
-              <YAxis 
-                axisLine={false} 
-                tickLine={false} 
-                tick={{ fontSize: 10, fill: '#8E8E8E' }} 
+              <YAxis
+                axisLine={false}
+                tickLine={false}
+                tick={{ fontSize: 10, fill: '#8E8E8E' }}
                 domain={['dataMin - 5', 'dataMax + 5']}
               />
-              <RechartsTooltip 
+              <RechartsTooltip
                 content={({ active, payload }) => {
                   if (active && payload && payload.length) {
                     return (
@@ -2737,19 +2734,19 @@ const BacktestingModule = () => {
                   return null;
                 }}
               />
-              <Line 
-                type="monotone" 
-                dataKey="strategy" 
-                stroke="#0047FF" 
-                strokeWidth={3} 
+              <Line
+                type="monotone"
+                dataKey="strategy"
+                stroke="#0047FF"
+                strokeWidth={3}
                 dot={false}
                 activeDot={{ r: 4, stroke: '#fff', strokeWidth: 2 }}
               />
-              <Line 
-                type="monotone" 
-                dataKey="benchmark" 
-                stroke="#8E8E8E" 
-                strokeWidth={1.5} 
+              <Line
+                type="monotone"
+                dataKey="benchmark"
+                stroke="#8E8E8E"
+                strokeWidth={1.5}
                 strokeDasharray="4 4"
                 dot={false}
               />
@@ -2773,32 +2770,32 @@ const AnalyticsAside = () => {
     <div className="space-y-10 animate-in fade-in slide-in-from-right duration-500 overflow-y-auto no-scrollbar pb-10 h-full flex flex-col">
       <section>
         <div className="flex items-center gap-3 mb-6">
-           <div className="w-1 h-4 bg-accent" />
-           <span className="label-mono tracking-[0.2em] text-accent uppercase font-black text-xs">Core Model Implementation</span>
+          <div className="w-1 h-4 bg-accent" />
+          <span className="label-mono tracking-[0.2em] text-accent uppercase font-black text-xs">Core Model Implementation</span>
         </div>
-        
+
         <div className="space-y-6">
-           <FrameworkBlock 
-             title="LINEAR REGRESSION (BASELINE)" 
-             content="Role: Primary alpha benchmark. Logic: Captures linear feature-return mappings. Metric: R² across NIFTY 500 universe." 
-           />
-           <FrameworkBlock 
-             title="RIDGE REGRESSION (REGULARIZED)" 
-             content="Focus: Stable coefficient estimation. Logic: L2 regularization shrinks feature coefficients to handle collinear market data." 
-           />
-           <FrameworkBlock 
-             title="RANDOM FOREST (ENSEMBLE)" 
-             content="Role: Captures non-linear dynamics. Insight: Explains dominant market drivers via SHAP feature importance values." 
-           />
+          <FrameworkBlock
+            title="LINEAR REGRESSION (BASELINE)"
+            content="Role: Primary alpha benchmark. Logic: Captures linear feature-return mappings. Metric: R² across NIFTY 500 universe."
+          />
+          <FrameworkBlock
+            title="RIDGE REGRESSION (REGULARIZED)"
+            content="Focus: Stable coefficient estimation. Logic: L2 regularization shrinks feature coefficients to handle collinear market data."
+          />
+          <FrameworkBlock
+            title="RANDOM FOREST (ENSEMBLE)"
+            content="Role: Captures non-linear dynamics. Insight: Explains dominant market drivers via SHAP feature importance values."
+          />
         </div>
       </section>
 
       <section className="space-y-4">
         <span className="label-mono block text-accent font-black uppercase tracking-widest text-[10px] mb-2">Evaluation Metrics</span>
         <div className="grid grid-cols-1 gap-4 bg-white/50 p-4 border border-line">
-           <EvaluationMetric label="SHARPE RATIO" value="2.42" />
-           <EvaluationMetric label="SORTINO RATIO" value="2.98" />
-           <EvaluationMetric label="ANNUALIZED_ALPHA" value="12.4%" />
+          <EvaluationMetric label="SHARPE RATIO" value="2.42" />
+          <EvaluationMetric label="SORTINO RATIO" value="2.98" />
+          <EvaluationMetric label="ANNUALIZED_ALPHA" value="12.4%" />
         </div>
       </section>
 
@@ -2810,18 +2807,18 @@ const AnalyticsAside = () => {
       </div>
 
       <div className="mt-auto flex flex-col gap-4 pt-10">
-         <button className="w-full bg-accent text-white py-4 font-mono text-[10px] tracking-[0.3em] font-black hover:bg-ink transition-all shadow-2xl relative overflow-hidden group">
-            <span className="relative z-10 text-[11px]">RETRAIN MODEL V2.4</span>
-            <div className="absolute inset-0 bg-white/10 translate-x-[-100%] group-hover:translate-x-0 transition-transform duration-500" />
-         </button>
-         <button className="flex items-center justify-center gap-2 text-[10px] font-mono text-muted hover:text-accent transition-colors py-2 border border-line border-dashed hover:border-accent">
-            <FileText size={12} />
-            <span>TECHNICAL_DOCUMENTATION.PDF</span>
-         </button>
-         <div className="flex justify-between items-center text-[8px] font-mono text-muted uppercase tracking-widest opacity-50 px-2 mt-2">
-            <span>Walk-Forward Backtesting Enabled</span>
-            <div className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
-         </div>
+        <button className="w-full bg-accent text-white py-4 font-mono text-[10px] tracking-[0.3em] font-black hover:bg-ink transition-all shadow-2xl relative overflow-hidden group">
+          <span className="relative z-10 text-[11px]">RETRAIN MODEL V2.4</span>
+          <div className="absolute inset-0 bg-white/10 translate-x-[-100%] group-hover:translate-x-0 transition-transform duration-500" />
+        </button>
+        <button className="flex items-center justify-center gap-2 text-[10px] font-mono text-muted hover:text-accent transition-colors py-2 border border-line border-dashed hover:border-accent">
+          <FileText size={12} />
+          <span>TECHNICAL_DOCUMENTATION.PDF</span>
+        </button>
+        <div className="flex justify-between items-center text-[8px] font-mono text-muted uppercase tracking-widest opacity-50 px-2 mt-2">
+          <span>Walk-Forward Backtesting Enabled</span>
+          <div className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
+        </div>
       </div>
     </div>
   );
@@ -2829,15 +2826,15 @@ const AnalyticsAside = () => {
 
 const EvaluationMetric = ({ label, value }: { label: string; value: string }) => (
   <div className="flex justify-between items-center border-b border-line last:border-0 pb-2 mb-2 last:pb-0 last:mb-0">
-     <span className="text-[9px] font-mono text-muted tracking-tighter">{label}</span>
-     <span className="text-[11px] font-black text-ink">{value}</span>
+    <span className="text-[9px] font-mono text-muted tracking-tighter">{label}</span>
+    <span className="text-[11px] font-black text-ink">{value}</span>
   </div>
 );
 
 const FrameworkBlock = ({ title, content }: { title: string; content: string }) => (
   <div className="border-l-2 border-line/30 pl-4 group hover:border-accent transition-colors">
-     <div className="label-mono text-[9px] text-muted mb-1.5 group-hover:text-accent transition-colors tracking-widest font-black leading-none">{title}</div>
-     <div className="text-[11px] leading-relaxed font-light opacity-60 text-ink">{content}</div>
+    <div className="label-mono text-[9px] text-muted mb-1.5 group-hover:text-accent transition-colors tracking-widest font-black leading-none">{title}</div>
+    <div className="text-[11px] leading-relaxed font-light opacity-60 text-ink">{content}</div>
   </div>
 );
 
@@ -2864,13 +2861,13 @@ const CustomScatterTooltip = ({ active, payload }: any) => {
 };
 
 const ModelCard = ({ icon, title, subtitle, active, onClick, locked }: any) => (
-  <button 
+  <button
     onClick={onClick}
     disabled={locked}
     className={`w-full flex items-center gap-4 p-4 border transition-all relative ${locked ? 'opacity-40 cursor-not-allowed bg-bg/30 border-line/50' : active ? 'border-accent bg-white shadow-xl translate-x-1 outline outline-1 outline-accent/20' : 'border-line hover:border-ink hover:bg-bg bg-transparent'}`}
   >
     <div className={`w-10 h-10 flex items-center justify-center border ${active ? 'border-accent text-accent bg-accent/5' : 'border-line text-muted bg-white'}`}>
-       {icon}
+      {icon}
     </div>
     <div className="text-left flex-1 min-w-0">
       <div className="text-[11px] font-bold leading-none mb-1 uppercase tracking-tight text-ink truncate">{title}</div>
@@ -2890,23 +2887,23 @@ export default function App() {
     <AnimatePresence mode="wait">
       {view === 'landing' ? (
         <motion.div
-           key="landing"
-           initial={{ opacity: 0 }}
-           animate={{ opacity: 1 }}
-           exit={{ opacity: 0 }}
-           transition={{ duration: 0.5 }}
-           className="w-full"
+          key="landing"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.5 }}
+          className="w-full"
         >
           <LandingPage onLaunch={() => setView('dashboard')} />
         </motion.div>
       ) : (
         <motion.div
-           key="dashboard"
-           initial={{ opacity: 0 }}
-           animate={{ opacity: 1 }}
-           exit={{ opacity: 0 }}
-           transition={{ duration: 0.5 }}
-           className="w-full"
+          key="dashboard"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.5 }}
+          className="w-full"
         >
           <VortexDashboard onBackToLanding={() => setView('landing')} />
         </motion.div>
@@ -2917,12 +2914,12 @@ export default function App() {
 
 const LandingBackground = () => (
   <div className="absolute inset-0 z-0 overflow-hidden bg-transparent">
-    <iframe 
-      src="https://my.spline.design/galaxyrollercoaster-noZmo93Bu8AML3T4vSkVGMgs/" 
+    <iframe
+      src="https://my.spline.design/galaxyrollercoaster-noZmo93Bu8AML3T4vSkVGMgs/"
       className="w-full h-full border-none opacity-90 scale-105"
       title="Galaxy Rollercoaster Spline Background"
     />
-    
+
     {/* Overlay to ensure readability and block iframe interactions */}
     <div className="absolute inset-0 bg-white/5 backdrop-blur-[1px] pointer-events-none" />
   </div>
@@ -2961,10 +2958,10 @@ const LandingPage = ({ onLaunch }: { onLaunch: () => void }) => {
       {/* Hero Section */}
       <main className="container mx-auto px-12 min-h-screen flex flex-col items-center justify-center relative z-10 text-center">
         <motion.div
-           initial={{ opacity: 0, y: 20 }}
-           animate={{ opacity: 1, y: 0 }}
-           transition={{ duration: 0.8 }}
-           className="mb-8 inline-flex items-center gap-3 px-6 py-2 border border-line bg-white shadow-sm"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="mb-8 inline-flex items-center gap-3 px-6 py-2 border border-line bg-white shadow-sm"
         >
           <div className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
           <span className="label-mono text-[10px] tracking-[0.4em] uppercase text-ink font-black">Institutional Intelligence Protocol</span>
@@ -2995,11 +2992,11 @@ const LandingPage = ({ onLaunch }: { onLaunch: () => void }) => {
           transition={{ duration: 0.5, delay: 0.6 }}
           className="flex flex-col sm:flex-row items-center gap-4 relative z-50 mb-20"
         >
-          <button 
+          <button
             onClick={onLaunch}
             className="btn-geometric px-12 py-5 text-sm flex items-center gap-4 group shadow-xl hover:shadow-accent/20"
           >
-            Launch System Analysis 
+            Launch System Analysis
             <ArrowRight size={18} className="group-hover:translate-x-2 transition-transform" />
           </button>
           <button className="px-12 py-5 border border-line text-ink font-mono text-xs uppercase font-bold tracking-[0.2em] hover:bg-white hover:border-ink transition-all bg-white/50 backdrop-blur-sm">
@@ -3034,8 +3031,8 @@ const LandingPage = ({ onLaunch }: { onLaunch: () => void }) => {
           </div>
           <div className="space-y-4">
             <div className="flex justify-between items-center">
-               <span className="text-[10px] font-bold text-ink">Model Confidence</span>
-               <span className="text-[10px] font-mono text-accent">98.4%</span>
+              <span className="text-[10px] font-bold text-ink">Model Confidence</span>
+              <span className="text-[10px] font-mono text-accent">98.4%</span>
             </div>
             <div className="h-[2px] bg-line w-full relative">
               <div className="absolute inset-0 bg-accent w-[98.4%]" />
